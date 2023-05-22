@@ -9,47 +9,29 @@ public class CameraControl : MonoBehaviour
     private Vector3 target;
     private Vector3 mousePos;
     private Vector3 refVel;
-
-    //private float cameraDist = 3.5f;
-
-    private float smoothTime = 0f; //zStart;
+    private float zStart;
 
     void Start()
     {
-        target= player.position;
-        //zStart = transform.position.z;
+        target = player.position;
+        zStart = transform.position.z;
     }
 
     void Update()
     {
-        mousePos = CaptureMousePos();
+        mousePos = UpdateMousePos();
         target = UpdateTargetPos();
+        target.z = zStart;
+
         UpdateCameraPosition();
     }
 
-    void UpdateCameraPosition()
-    {
-        transform.position = Vector3.SmoothDamp(transform.position, target, ref refVel, smoothTime);
-    }
+    void UpdateCameraPosition() 
+        => transform.position = Vector3.SmoothDamp(transform.position, target, ref refVel, 0);
 
-    Vector3 CaptureMousePos()
-    {
-        Vector2 ret = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-        ret *= 2;
-        ret -= Vector2.one;
-        //float max = 0.9f;
-        //if (Mathf.Abs(ret.x) > max || Mathf.Abs(ret.y) > max)
-        //{
-        //    ret = ret.normalized;
-        //}
-        return ret;
-    }
-
-    Vector3 UpdateTargetPos()
-    {
-        //Vector3 mouseOffset = mousePos * cameraDist;
-        Vector3 ret = player.position + mousePos; //+ mouseOffset;
-        //ret.z = zStart;
-        return ret;
-    }
+    Vector3 UpdateMousePos() 
+        => Camera.main.ScreenToViewportPoint(Input.mousePosition);
+    
+    Vector3 UpdateTargetPos() 
+        => player.position + mousePos;
 }

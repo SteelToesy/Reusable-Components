@@ -7,13 +7,13 @@ public class DirectionalMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     private PlayerActions _playerActions;
-    private Rigidbody _rb;
+    private Rigidbody2D _rb;
     private Vector2 _moveInput;
 
     private void Awake()
     {
         _playerActions = new PlayerActions();
-        _rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()

@@ -44,3 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb9a525dcb53da448cdc6d063f3c406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _texture: {fileID: 0}
+  _damage: 0
+  _firerate: 0
+  _reloadTime: 0
+  _maxAmmo: 0
+  _ammo: 0

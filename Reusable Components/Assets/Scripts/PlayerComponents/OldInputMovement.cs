@@ -25,6 +25,5 @@ public class OldInputMovement : MonoBehaviour
     private void FixedUpdate()
     {
         _body.velocity = new Vector2(_horizontalAxis, _verticalAxis).normalized * _speed;
-        Debug.Log(_body.velocity);
     }
 }

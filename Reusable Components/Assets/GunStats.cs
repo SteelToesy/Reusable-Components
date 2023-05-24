@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunBase : MonoBehaviour
+public class GunStats : MonoBehaviour
 {
-    [SerializeField] private GunHolder _gunHolder;
-
-    [SerializeField] private Texture2D _texture;
+    [SerializeField] private Sprite _sprite;
 
     [SerializeField] private float _damage;
     [SerializeField] private float _firerate;
@@ -14,14 +12,4 @@ public class GunBase : MonoBehaviour
     [SerializeField] private float _reloadTime;
     [SerializeField] private float _maxAmmo;
     [SerializeField] private float _ammo;
-
-    void Shoot()
-    {
-
-    }
-
-    void Reload()
-    {
-
-    }
 }

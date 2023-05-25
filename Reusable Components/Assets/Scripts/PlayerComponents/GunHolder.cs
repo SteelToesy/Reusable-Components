@@ -5,15 +5,28 @@ using UnityEngine;
 public class GunHolder : MonoBehaviour
 {
     [SerializeField] private int _currentGun;
-    [SerializeField] private List<GunStats> _guns = new();
+    [SerializeField] private GunBase[] _guns = new GunBase[2];
 
-    void AddGun(GunStats pGunstats)
+    private void Start()
     {
-        _guns.Add(pGunstats);
+        _guns[0] = GetComponent<Pistol>();
     }
 
-    void RemoveGun(GunStats pGunstats)
+    void AddGun(GunBase pGunBase)
     {
-        _guns.Remove(pGunstats);
+        for (int i = 0; i < _guns.Length; i++)
+            if (_guns[i] == null)
+            {
+                _guns[i] = pGunBase;
+                break;
+            }
+            else
+                ReplaceGun(pGunBase);
     }
+
+    void ReplaceGun(GunBase pGunBase) 
+        => _guns[_currentGun] = pGunBase;
+
+    public void Shoot()
+        => _guns[_currentGun].Shoot();
 }

@@ -44,6 +44,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""ab617db6-b17e-4c78-9868-ca23aa273cfb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5cdd4a47-7fbd-4963-b677-22efc509280b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_PlayerMap = asset.FindActionMap("PlayerMap", throwIfNotFound: true);
         m_PlayerMap_Movement = m_PlayerMap.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMap_Sprint = m_PlayerMap.FindAction("Sprint", throwIfNotFound: true);
+        m_PlayerMap_Fire = m_PlayerMap.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -183,12 +204,14 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private IPlayerMapActions m_PlayerMapActionsCallbackInterface;
     private readonly InputAction m_PlayerMap_Movement;
     private readonly InputAction m_PlayerMap_Sprint;
+    private readonly InputAction m_PlayerMap_Fire;
     public struct PlayerMapActions
     {
         private @PlayerActions m_Wrapper;
         public PlayerMapActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerMap_Movement;
         public InputAction @Sprint => m_Wrapper.m_PlayerMap_Sprint;
+        public InputAction @Fire => m_Wrapper.m_PlayerMap_Fire;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -204,6 +227,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Sprint.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
+                @Fire.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
+                @Fire.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -214,6 +240,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
+                @Fire.canceled += instance.OnFire;
             }
         }
     }
@@ -222,5 +251,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }

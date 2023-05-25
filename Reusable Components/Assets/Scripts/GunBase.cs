@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class GunBase : MonoBehaviour
 {
-    [SerializeField] private GunHolder _gunHolder;
+    protected Texture2D _texture;
+    protected Transform _bulletSpawnpoint;
+    protected GameObject _bullet;
 
-    [SerializeField] private Texture2D _texture;
+    protected float _damage;
+    protected float _firerate;
+    protected float _reloadTime;
 
-    [SerializeField] private float _damage;
-    [SerializeField] private float _firerate;
+    protected float _maxAmmo;
+    protected float _ammo;
 
-    [SerializeField] private float _reloadTime;
-    [SerializeField] private float _maxAmmo;
-    [SerializeField] private float _ammo;
-
-    void Shoot()
+    void ConnectWeapon()
     {
 
+    }
+
+    public void Shoot()
+    {
+        if (_ammo == 0)
+            Reload();
+        Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
     }
 
     void Reload()

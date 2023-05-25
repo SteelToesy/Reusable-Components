@@ -7,6 +7,7 @@ public class DirectionalMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     private float _originalSpeed;
+
     private PlayerInput _playerInput;
     private Rigidbody2D _rb;
     private Vector2 _moveInput;

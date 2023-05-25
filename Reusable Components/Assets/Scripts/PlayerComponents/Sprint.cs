@@ -15,10 +15,9 @@ public class Sprint : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
     }
 
-    // Update is called once per frame
     void Update()
        => Sprinting();
 
     void Sprinting()
-       => _directionalMovement.ChangeSpeed(_playerInput.Sprint > 0 ? _SprintSpeed : _directionalMovement.OriginalSpeed);
+       => _directionalMovement.ChangeSpeed(_playerInput.Sprint > 0 ? _SprintSpeed : _directionalMovement.OriginalSpeed); //muy divertido
 }

@@ -6,16 +6,22 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     private PlayerInput _playerInput;
-    private GunHolder _gunHolder;
+    private GunHandler _gunHolder;
 
     private void Awake()
     {
         _playerInput = GetComponent<PlayerInput>();
-        _gunHolder = GetComponentInChildren<GunHolder>();
+        _gunHolder = GetComponent<GunHandler>();
     }
 
     private void Update()
     {
+        Shoot();
+    }
+
+    void Shoot()
+    {
         if (_playerInput.Fire > 0) _gunHolder.Shoot();
+        Debug.Log(_gunHolder);
     }
 }

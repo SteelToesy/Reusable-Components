@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunHolder : MonoBehaviour
+public class GunHandler : MonoBehaviour
 {
+    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private int _currentGun;
-    [SerializeField] private GunBase[] _guns = new GunBase[2];
+    [SerializeField] private List<GunBase> _guns = new();
 
     private void Start()
     {
-        _guns[0] = GetComponent<Pistol>();
+        AddGun(gameObject.AddComponent<Pistol>());
     }
 
     void AddGun(GunBase pGunBase)
     {
-        for (int i = 0; i < _guns.Length; i++)
+        for (int i = 0; i < _guns.Count; i++)
             if (_guns[i] == null)
             {
                 _guns[i] = pGunBase;
@@ -22,6 +23,7 @@ public class GunHolder : MonoBehaviour
             }
             else
                 ReplaceGun(pGunBase);
+        pGunBase.ConnectToPlayer(_bulletPrefab);
     }
 
     void ReplaceGun(GunBase pGunBase) 

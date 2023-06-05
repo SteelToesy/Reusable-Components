@@ -4,32 +4,28 @@ using UnityEngine;
 
 public class GunHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private int _currentGun;
-    [SerializeField] private List<GunBase> _guns = new();
+    [SerializeField] private Component[] _guns;
 
-    private void Start()
-    {
-        //AddGun(gameObject.AddComponent<Pistol>());
-    }
+    //Add a gun to the array and turn one gun off while using the other
 
     public void AddGun(GunBase pGunBase)
     {
-        for (int i = 0; i < _guns.Count; i++)
+        gameObject.AddComponent(pGunBase.GetType());
+        for (int i = 0; i < _guns.Length; i++)
+        {
             if (_guns[i] == null)
             {
-                _guns[i] = pGunBase;
+                _guns[i] = GetComponent(pGunBase.GetType());
                 break;
             }
             else
                 ReplaceGun(pGunBase);
-        gameObject.AddComponent(pGunBase.GetType());
-        pGunBase.ConnectToPlayer(_bulletPrefab);
+            pGunBase.ConnectToPlayer();
+        }
+
     }
 
-    public void ReplaceGun(GunBase pGunBase) 
-        => _guns[_currentGun] = pGunBase;
-
-    public void Shoot()
-        => _guns[_currentGun].Shoot();
+    public void ReplaceGun(Component pGunBase) 
+        => _guns[_currentGun] = GetComponent(pGunBase.GetType());
 }

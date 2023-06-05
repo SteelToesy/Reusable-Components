@@ -436,6 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1130445421}
+  lerp: 0.05
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,9 +723,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f897f545cd6e32047b6ab9e71349066a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 0}
   _currentGun: 0
-  _guns: []
+  _guns:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!70 &1130445435
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -866,7 +868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0043c78bb2d41ce4fa62266c79dca0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 1675043641}
+  _gun: {fileID: 0}
 --- !u!114 &1675043641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,6 +881,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09faed96149f734449e1dd975cce8596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInput: {fileID: 0}
+  _texture: {fileID: 0}
+  _bulletSpawnpoint: {fileID: 0}
+  _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
+  _damage: 2
+  _firerate: 2
+  _reloadTime: 0
+  _maxAmmo: 0
+  _ammo: 0
 --- !u!1 &2087387607
 GameObject:
   m_ObjectHideFlags: 0

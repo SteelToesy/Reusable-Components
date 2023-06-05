@@ -9,7 +9,7 @@ public class GunPickup : MonoBehaviour, IPickupable
 
     void Start() 
     { 
-        _gun = GetComponent<Pistol>();
+        _gun = GetComponent<GunBase>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)

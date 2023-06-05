@@ -6,10 +6,13 @@ public class CameraControl : MonoBehaviour
 {
     [SerializeField] private Transform player;
 
+    [SerializeField] private float lerp;
+
     private Vector3 target;
     private Vector3 mousePos;
     private Vector3 refVel;
     private float zStart;
+
 
     void Start()
     {
@@ -27,7 +30,7 @@ public class CameraControl : MonoBehaviour
     }
 
     void UpdateCameraPosition() 
-        => transform.position = Vector3.SmoothDamp(transform.position, target, ref refVel, 3);
+        => transform.position = Vector3.SmoothDamp(transform.position, target, ref refVel, lerp);
 
     Vector3 UpdateMousePos() 
         => Camera.main.ScreenToViewportPoint(Input.mousePosition);

@@ -8,6 +8,14 @@ public class Pistol : GunBase
     {
         _damage = 2;
         _firerate = 2;
+        _reloadTime = 0;
+        _maxAmmo = 7;
+        _ammo = 7;
+    }
 
+    private void Update()
+    {
+        Shoot();
+        ConnectToPlayer();
     }
 }

@@ -27,7 +27,7 @@ public class CameraControl : MonoBehaviour
     }
 
     void UpdateCameraPosition() 
-        => transform.position = Vector3.SmoothDamp(transform.position, target, ref refVel, 0);
+        => transform.position = Vector3.SmoothDamp(transform.position, target, ref refVel, 3);
 
     Vector3 UpdateMousePos() 
         => Camera.main.ScreenToViewportPoint(Input.mousePosition);

@@ -10,10 +10,10 @@ public class GunHandler : MonoBehaviour
 
     private void Start()
     {
-        AddGun(gameObject.AddComponent<Pistol>());
+        //AddGun(gameObject.AddComponent<Pistol>());
     }
 
-    void AddGun(GunBase pGunBase)
+    public void AddGun(GunBase pGunBase)
     {
         for (int i = 0; i < _guns.Count; i++)
             if (_guns[i] == null)
@@ -23,10 +23,11 @@ public class GunHandler : MonoBehaviour
             }
             else
                 ReplaceGun(pGunBase);
+        gameObject.AddComponent(pGunBase.GetType());
         pGunBase.ConnectToPlayer(_bulletPrefab);
     }
 
-    void ReplaceGun(GunBase pGunBase) 
+    public void ReplaceGun(GunBase pGunBase) 
         => _guns[_currentGun] = pGunBase;
 
     public void Shoot()

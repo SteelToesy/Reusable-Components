@@ -39,12 +39,21 @@ public class GunBase : MonoBehaviour
         if (_ammo <= 0)
             Reload();
         else
+        {
+            _ammo--;
             Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
+        }
     }
 
     public void Reload()
     {
         //TODO: reload fuction
-        _ammo = _maxAmmo;
+        if (_reloadTime < Time.time - _reloadTime)
+            _reloadTime += Time.time;
+        else if (Time.time > _reloadTime)
+        {
+            _ammo = _maxAmmo;
+            _reloadTime = 3;
+        }
     }
 }

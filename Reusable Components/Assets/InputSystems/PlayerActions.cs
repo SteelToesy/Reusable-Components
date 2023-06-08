@@ -38,21 +38,30 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Sprint"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""fe9f0eeb-8ab5-410a-8297-46c0cca63111"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Key"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""Fire"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""ab617db6-b17e-4c78-9868-ca23aa273cfb"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Key"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Value"",
+                    ""id"": ""3d272c93-91bf-4ead-b193-afb619b85a9c"",
+                    ""expectedControlType"": ""Key"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e62f3cc-d94c-4520-a36c-a6132062e169"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +163,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_PlayerMap_Movement = m_PlayerMap.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMap_Sprint = m_PlayerMap.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerMap_Fire = m_PlayerMap.FindAction("Fire", throwIfNotFound: true);
+        m_PlayerMap_Reload = m_PlayerMap.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +226,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMap_Movement;
     private readonly InputAction m_PlayerMap_Sprint;
     private readonly InputAction m_PlayerMap_Fire;
+    private readonly InputAction m_PlayerMap_Reload;
     public struct PlayerMapActions
     {
         private @PlayerActions m_Wrapper;
@@ -212,6 +234,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerMap_Movement;
         public InputAction @Sprint => m_Wrapper.m_PlayerMap_Sprint;
         public InputAction @Fire => m_Wrapper.m_PlayerMap_Fire;
+        public InputAction @Reload => m_Wrapper.m_PlayerMap_Reload;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +253,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Fire.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
+                @Reload.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -243,6 +269,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -252,5 +281,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

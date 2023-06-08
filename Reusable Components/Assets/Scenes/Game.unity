@@ -849,6 +849,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1023189231501375602, guid: a90ceda80f70a3d48ab0e67077b5c565, type: 3}
+      propertyPath: _bullet
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023189231501375602, guid: a90ceda80f70a3d48ab0e67077b5c565, type: 3}
+      propertyPath: _damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023189231501375602, guid: a90ceda80f70a3d48ab0e67077b5c565, type: 3}
+      propertyPath: _firerate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1023189231501375608, guid: a90ceda80f70a3d48ab0e67077b5c565, type: 3}
       propertyPath: m_Name
       value: Pistol

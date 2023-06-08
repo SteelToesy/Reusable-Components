@@ -23,4 +23,7 @@ public class PlayerInput : MonoBehaviour
 
     public float Fire 
         => _playerActions.PlayerMap.Fire.ReadValue<float>();
+
+    public float Reload
+        => //_playerActions.PlayerMap.Reload.ReadValue<float>();
 }

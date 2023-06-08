@@ -17,15 +17,22 @@ public class GunBase : MonoBehaviour
     [SerializeField]protected float _maxAmmo;
     [SerializeField]protected float _ammo;
 
-    public virtual void ConnectToPlayer()
+    private void Update()
     {
-        _playerInput = GetComponent<PlayerInput>();
-        _bulletSpawnpoint = GetComponentInChildren<Transform>();
+        if (_playerInput != null)
+            Shoot();
     }
 
-    public virtual void Shoot()
+    public void ConnectToPlayer()
     {
-        Debug.Log("reach");
+        _playerInput = GetComponent<PlayerInput>();
+        GunHandler gunHandler = GetComponent<GunHandler>();
+        _bulletSpawnpoint = gunHandler.BulletSpawnPoint;
+        _bullet = gunHandler.Bullet;
+    }
+
+    public void Shoot()
+    {
         if (_playerInput.Fire <= 0)
             return;
 
@@ -35,7 +42,7 @@ public class GunBase : MonoBehaviour
             Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
     }
 
-    public virtual void Reload()
+    public void Reload()
     {
         //TODO: reload fuction
         _ammo = _maxAmmo;

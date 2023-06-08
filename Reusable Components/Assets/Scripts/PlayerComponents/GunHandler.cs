@@ -6,6 +6,13 @@ public class GunHandler : MonoBehaviour
 {
     [SerializeField] private int _currentGun;
     [SerializeField] private Component[] _guns;
+    [SerializeField] private GameObject _bullet; //temp?
+    [SerializeField] private Transform _bulletSpawnpoint;
+
+    public GameObject Bullet => _bullet;
+
+    public Transform BulletSpawnPoint => _bulletSpawnpoint;
+
 
     //Add a gun to the array and turn one gun off while using the other
 
@@ -21,9 +28,7 @@ public class GunHandler : MonoBehaviour
             }
             else
                 ReplaceGun(pGunBase);
-            pGunBase.ConnectToPlayer();
         }
-
     }
 
     public void ReplaceGun(Component pGunBase) 

@@ -5,19 +5,28 @@ using UnityEngine;
 public class Sprint : MonoBehaviour
 {
     [SerializeField] private float _SprintSpeed;
+    [SerializeField] private PlayerActions _playerActions;
 
-    private PlayerInput _playerInput;
     private DirectionalMovement _directionalMovement;
+
+    public bool Sprinting
+        => _playerActions.PlayerMap.Sprint.IsInProgress();
 
     private void Awake()
     {
         _directionalMovement = GetComponent<DirectionalMovement>();
-        _playerInput = GetComponent<PlayerInput>();
+        _playerActions = new PlayerActions();
     }
 
-    void Update()
-       => Sprinting();
+    private void OnEnable()
+    => _playerActions.PlayerMap.Sprint.Enable();
 
-    void Sprinting()
-       => _directionalMovement.ChangeSpeed(_playerInput.Sprint ? _SprintSpeed : _directionalMovement.OriginalSpeed); //muy divertido
+    private void OnDisable()
+        => _playerActions.PlayerMap.Sprint.Disable();
+
+    void Update()
+       => ActivateSprint();
+
+    void ActivateSprint()
+       => _directionalMovement.ChangeSpeed(Sprinting ? _SprintSpeed : _directionalMovement.OriginalSpeed); //muy divertido
 }

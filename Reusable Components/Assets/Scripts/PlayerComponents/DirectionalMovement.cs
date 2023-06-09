@@ -6,23 +6,32 @@ using UnityEngine.InputSystem;
 public class DirectionalMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private PlayerActions _playerActions;
     private float _originalSpeed;
 
-    private PlayerInput _playerInput;
     private Rigidbody2D _rb;
     private Vector2 _moveInput;
 
     public float OriginalSpeed { get { return _originalSpeed; } }
 
+    public Vector2 Direction
+        => _playerActions.PlayerMap.Movement.ReadValue<Vector2>();
+
     private void Awake()
     {
         _originalSpeed = _speed;
-        _playerInput = GetComponent<PlayerInput>();
         _rb = GetComponent<Rigidbody2D>();
+        _playerActions = new PlayerActions();
     }
 
+    private void OnEnable()
+        => _playerActions.PlayerMap.Movement.Enable();
+
+    private void OnDisable()
+        => _playerActions.PlayerMap.Movement.Disable();
+
     private void Update()
-        => _moveInput = _playerInput.Direction;
+        => _moveInput = Direction;
 
     private void FixedUpdate()
         => _rb.velocity = _moveInput.normalized * _speed;

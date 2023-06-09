@@ -14,8 +14,6 @@ public class GunHandler : MonoBehaviour
     public Transform BulletSpawnPoint => _bulletSpawnpoint;
 
 
-    //Add a gun to the array and turn one gun off while using the other
-
     public void AddGun(GunBase pGunBase)
     {
         gameObject.AddComponent(pGunBase.GetType());

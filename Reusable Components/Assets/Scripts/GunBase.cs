@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class GunBase : MonoBehaviour
 {
-    [SerializeField]protected PlayerActions _actions;
+    [SerializeField]protected PlayerActions _playerActions;
 
     [SerializeField]protected Texture2D _texture;
     [SerializeField]protected Transform _bulletSpawnpoint;
@@ -23,7 +23,23 @@ public class GunBase : MonoBehaviour
 
     private void Awake()
     {
-        _actions = new PlayerActions();
+        _playerActions = new PlayerActions();
+    }
+
+    private void OnEnable()
+    {
+        _playerActions.PlayerMap.Fire.Enable();
+        _playerActions.PlayerMap.Reload.Enable();
+        _playerActions.PlayerMap.Fire.performed += Fire_performed;
+        _playerActions.PlayerMap.Reload.performed += Reload_performed;
+    }
+
+    private void OnDisable()
+    {
+        _playerActions.PlayerMap.Fire.Disable();
+        _playerActions.PlayerMap.Reload.Disable();
+        _playerActions.PlayerMap.Fire.performed -= Fire_performed;
+        _playerActions.PlayerMap.Reload.performed -= Reload_performed;
     }
 
     public void ConnectToPlayer()
@@ -35,14 +51,12 @@ public class GunBase : MonoBehaviour
 
     public IEnumerator Shoot()
     {
-        if (_ammo <= 0 || _reloading)
-            yield return null;
-        else
+        if (_ammo > 0 && !_reloading)
         {
             _ammo--;
             Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
+            yield return new WaitForSeconds(60 / _firerate); // implement firerate further
         }
-        yield return new WaitForSeconds(1 / (_firerate/60)); // implement firerate further
     }
 
     public IEnumerator Reload()
@@ -57,26 +71,12 @@ public class GunBase : MonoBehaviour
 
     public void Fire_performed(InputAction.CallbackContext obj)
     {
-        Shoot();
+        StartCoroutine(Shoot());
     }
 
     private void Reload_performed(InputAction.CallbackContext obj)
     {
-        if (!_reloading)
+        if (!_reloading || _ammo != _maxAmmo)
             StartCoroutine(Reload());
-    }
-
-    private void OnEnable()
-    {
-        _actions.PlayerMap.Enable();
-        _actions.PlayerMap.Fire.performed += Fire_performed;
-        _actions.PlayerMap.Reload.performed += Reload_performed;
-    }
-
-    private void OnDisable()
-    {
-        _actions.PlayerMap.Disable();
-        _actions.PlayerMap.Fire.performed -= Fire_performed;
-        _actions.PlayerMap.Reload.performed -= Reload_performed;
     }
 }

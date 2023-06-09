@@ -120,4 +120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletSpeed: 50
-  _despawnTime: 10
+  _despawnTime: 1.5

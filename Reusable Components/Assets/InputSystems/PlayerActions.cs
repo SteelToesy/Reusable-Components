@@ -244,32 +244,32 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerMapActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
+                @Movement.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
-                @Sprint.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
-                @Fire.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
+                @Fire.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
-                @Reload.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
-                @Fire.started += instance.OnFire;
+                @Fire.performed += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
             }

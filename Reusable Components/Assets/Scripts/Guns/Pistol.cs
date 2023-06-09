@@ -8,8 +8,8 @@ public class Pistol : GunBase
     {
         _damage = 2;
         _firerate = 2;
-        _reloadTime = 5;
-        _maxAmmo = 2;
+        _reloadTime = 2;
+        _maxAmmo = 7;
         _ammo = _maxAmmo;
     }
 

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GunBase : MonoBehaviour
 {
-    [SerializeField]protected PlayerInput _playerInput;
+    [SerializeField]protected PlayerActions _actions;
 
     [SerializeField]protected Texture2D _texture;
     [SerializeField]protected Transform _bulletSpawnpoint;
@@ -12,48 +13,70 @@ public class GunBase : MonoBehaviour
 
     [SerializeField]protected float _damage;
     [SerializeField]protected float _firerate;
+
+    [SerializeField]protected bool _reloading = false;
     [SerializeField]protected float _reloadTime;
+    [SerializeField]protected float _currentReloadingTime;
 
     [SerializeField]protected float _maxAmmo;
     [SerializeField]protected float _ammo;
 
-    private void Update()
+    private void Awake()
     {
-        if (_playerInput != null)
-            Shoot();
+        _actions = new PlayerActions();
     }
 
     public void ConnectToPlayer()
     {
-        _playerInput = GetComponent<PlayerInput>();
         GunHandler gunHandler = GetComponent<GunHandler>();
         _bulletSpawnpoint = gunHandler.BulletSpawnPoint;
         _bullet = gunHandler.Bullet;
     }
 
-    public void Shoot()
+    public IEnumerator Shoot()
     {
-        if (_playerInput.Fire <= 0)
-            return;
-
-        if (_ammo <= 0)
-            Reload();
+        if (_ammo <= 0 || _reloading)
+            yield return null;
         else
         {
             _ammo--;
             Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
         }
+        yield return new WaitForSeconds(1 / (_firerate/60)); // implement firerate further
     }
 
-    public void Reload()
+    public IEnumerator Reload()
     {
-        //TODO: reload fuction
-        if (_reloadTime < Time.time - _reloadTime)
-            _reloadTime += Time.time;
-        else if (Time.time > _reloadTime)
-        {
-            _ammo = _maxAmmo;
-            _reloadTime = 3;
-        }
+        //TODO: reload fuction now whack
+
+        _reloading = true;
+        yield return new WaitForSeconds(_reloadTime);
+        _ammo = _maxAmmo;
+        _reloading = false;
+    }
+
+    public void Fire_performed(InputAction.CallbackContext obj)
+    {
+        Shoot();
+    }
+
+    private void Reload_performed(InputAction.CallbackContext obj)
+    {
+        if (!_reloading)
+            StartCoroutine(Reload());
+    }
+
+    private void OnEnable()
+    {
+        _actions.PlayerMap.Enable();
+        _actions.PlayerMap.Fire.performed += Fire_performed;
+        _actions.PlayerMap.Reload.performed += Reload_performed;
+    }
+
+    private void OnDisable()
+    {
+        _actions.PlayerMap.Disable();
+        _actions.PlayerMap.Fire.performed -= Fire_performed;
+        _actions.PlayerMap.Reload.performed -= Reload_performed;
     }
 }

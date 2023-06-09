@@ -19,5 +19,5 @@ public class Sprint : MonoBehaviour
        => Sprinting();
 
     void Sprinting()
-       => _directionalMovement.ChangeSpeed(_playerInput.Sprint > 0 ? _SprintSpeed : _directionalMovement.OriginalSpeed); //muy divertido
+       => _directionalMovement.ChangeSpeed(_playerInput.Sprint ? _SprintSpeed : _directionalMovement.OriginalSpeed); //muy divertido
 }

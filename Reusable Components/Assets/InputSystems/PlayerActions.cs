@@ -62,6 +62,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleFirerate"",
+                    ""type"": ""Button"",
+                    ""id"": ""f6ab85c3-7b46-4a7d-bd52-6ed422af3b02"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95c13e4f-a50a-477b-93c3-16d13260f419"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleFirerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_PlayerMap_Sprint = m_PlayerMap.FindAction("Sprint", throwIfNotFound: true);
         m_PlayerMap_Fire = m_PlayerMap.FindAction("Fire", throwIfNotFound: true);
         m_PlayerMap_Reload = m_PlayerMap.FindAction("Reload", throwIfNotFound: true);
+        m_PlayerMap_ToggleFirerate = m_PlayerMap.FindAction("ToggleFirerate", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -227,6 +248,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMap_Sprint;
     private readonly InputAction m_PlayerMap_Fire;
     private readonly InputAction m_PlayerMap_Reload;
+    private readonly InputAction m_PlayerMap_ToggleFirerate;
     public struct PlayerMapActions
     {
         private @PlayerActions m_Wrapper;
@@ -235,6 +257,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Sprint => m_Wrapper.m_PlayerMap_Sprint;
         public InputAction @Fire => m_Wrapper.m_PlayerMap_Fire;
         public InputAction @Reload => m_Wrapper.m_PlayerMap_Reload;
+        public InputAction @ToggleFirerate => m_Wrapper.m_PlayerMap_ToggleFirerate;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -244,34 +267,40 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerMapActionsCallbackInterface != null)
             {
-                @Movement.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
+                @Movement.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnMovement;
-                @Sprint.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
+                @Sprint.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSprint;
-                @Fire.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
+                @Fire.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnFire;
-                @Reload.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
+                @Reload.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnReload;
+                @ToggleFirerate.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnToggleFirerate;
+                @ToggleFirerate.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnToggleFirerate;
+                @ToggleFirerate.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnToggleFirerate;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Movement.performed += instance.OnMovement;
+                @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
-                @Sprint.performed += instance.OnSprint;
+                @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
-                @Fire.performed += instance.OnFire;
+                @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-                @Reload.performed += instance.OnReload;
+                @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @ToggleFirerate.started += instance.OnToggleFirerate;
+                @ToggleFirerate.performed += instance.OnToggleFirerate;
+                @ToggleFirerate.canceled += instance.OnToggleFirerate;
             }
         }
     }
@@ -282,5 +311,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnToggleFirerate(InputAction.CallbackContext context);
     }
 }

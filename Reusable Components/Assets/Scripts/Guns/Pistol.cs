@@ -6,11 +6,13 @@ public class Pistol : GunBase
 {
     public Pistol()
     {
+        _allowFullAuto = false;
         _damage = 2;
-        _firerate = 60;
-        _reloadTime = 2;
+        _firerate = 240;
+
+        _reloadTime = 3;
+
         _maxAmmo = 7;
-        _ammo = _maxAmmo;
     }
 
     private void Start()

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1023189231501375608
+--- !u!1 &2178505115246735334
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1023189231501375614}
-  - component: {fileID: 1023189231501375615}
-  - component: {fileID: 1023189231501375612}
-  - component: {fileID: 1023189231501375603}
-  - component: {fileID: 7000658565393960775}
+  - component: {fileID: 2178505115246735339}
+  - component: {fileID: 2178505115246735338}
+  - component: {fileID: 2178505115246735333}
+  - component: {fileID: 2178505115246735332}
+  - component: {fileID: 2178505115246735335}
   m_Layer: 0
-  m_Name: Pistol
+  m_Name: Mp40
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1023189231501375614
+--- !u!4 &2178505115246735339
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023189231501375608}
+  m_GameObject: {fileID: 2178505115246735334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.25123215, y: 0.4345029, z: 0}
+  m_LocalPosition: {x: -3.0242453, y: -0.47376746, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1023189231501375615
+--- !u!212 &2178505115246735338
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023189231501375608}
+  m_GameObject: {fileID: 2178505115246735334}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.15253496, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -87,13 +87,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &1023189231501375612
+--- !u!61 &2178505115246735333
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023189231501375608}
+  m_GameObject: {fileID: 2178505115246735334}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -113,41 +113,41 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1023189231501375603
+--- !u!114 &2178505115246735332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023189231501375608}
+  m_GameObject: {fileID: 2178505115246735334}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0043c78bb2d41ce4fa62266c79dca0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gun: {fileID: 0}
---- !u!114 &7000658565393960775
+--- !u!114 &2178505115246735335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023189231501375608}
+  m_GameObject: {fileID: 2178505115246735334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09faed96149f734449e1dd975cce8596, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c0abe93e9713447af513015ef711b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _texture: {fileID: 0}
   _bulletSpawnpoint: {fileID: 0}
   _bullet: {fileID: 0}
   _fullAuto: 0
-  _allowFullAuto: 0
-  _damage: 2
-  _firerate: 240
+  _allowFullAuto: 1
+  _damage: 6
+  _firerate: 320
   _allowShoot: 1
   _reloading: 0
-  _reloadTime: 3
+  _reloadTime: 2
   _currentReloadingTime: 0
-  _maxAmmo: 7
+  _maxAmmo: 30
   _ammo: 0

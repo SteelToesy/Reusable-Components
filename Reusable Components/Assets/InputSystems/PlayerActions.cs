@@ -71,6 +71,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5f531fe-63df-4826-8d1e-3e479892bb2a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""ToggleFirerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""abd2123a-a2e4-465b-8053-f662c5b41576"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -185,6 +205,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_PlayerMap_Fire = m_PlayerMap.FindAction("Fire", throwIfNotFound: true);
         m_PlayerMap_Reload = m_PlayerMap.FindAction("Reload", throwIfNotFound: true);
         m_PlayerMap_ToggleFirerate = m_PlayerMap.FindAction("ToggleFirerate", throwIfNotFound: true);
+        m_PlayerMap_SwitchWeapon = m_PlayerMap.FindAction("SwitchWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +270,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMap_Fire;
     private readonly InputAction m_PlayerMap_Reload;
     private readonly InputAction m_PlayerMap_ToggleFirerate;
+    private readonly InputAction m_PlayerMap_SwitchWeapon;
     public struct PlayerMapActions
     {
         private @PlayerActions m_Wrapper;
@@ -258,6 +280,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_PlayerMap_Fire;
         public InputAction @Reload => m_Wrapper.m_PlayerMap_Reload;
         public InputAction @ToggleFirerate => m_Wrapper.m_PlayerMap_ToggleFirerate;
+        public InputAction @SwitchWeapon => m_Wrapper.m_PlayerMap_SwitchWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -282,6 +305,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @ToggleFirerate.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnToggleFirerate;
                 @ToggleFirerate.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnToggleFirerate;
                 @ToggleFirerate.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnToggleFirerate;
+                @SwitchWeapon.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSwitchWeapon;
+                @SwitchWeapon.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnSwitchWeapon;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -301,6 +327,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @ToggleFirerate.started += instance.OnToggleFirerate;
                 @ToggleFirerate.performed += instance.OnToggleFirerate;
                 @ToggleFirerate.canceled += instance.OnToggleFirerate;
+                @SwitchWeapon.started += instance.OnSwitchWeapon;
+                @SwitchWeapon.performed += instance.OnSwitchWeapon;
+                @SwitchWeapon.canceled += instance.OnSwitchWeapon;
             }
         }
     }
@@ -312,5 +341,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnToggleFirerate(InputAction.CallbackContext context);
+        void OnSwitchWeapon(InputAction.CallbackContext context);
     }
 }

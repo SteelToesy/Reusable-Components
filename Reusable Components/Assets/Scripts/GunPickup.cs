@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GunPickup : MonoBehaviour, IPickupable
 {
-    [SerializeField] private GunBase _gun;
+    [SerializeField] private Component _gun;
 
     void Start() 
     { 

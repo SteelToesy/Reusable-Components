@@ -61,6 +61,9 @@ public class GunBase : MonoBehaviour
 
     public void ConnectToPlayer()
     {
+        if (!GetComponent<GunHandler>())
+            return;
+
         GunHandler gunHandler = GetComponent<GunHandler>();
         _bulletSpawnpoint = gunHandler.BulletSpawnPoint;
         _bullet = gunHandler.Bullet;
@@ -91,7 +94,7 @@ public class GunBase : MonoBehaviour
 
     public void Fullauto()
     {
-        if (!_fullAuto)
+        if (!_fullAuto || _bulletSpawnpoint)
             return;
 
         if (_playerActions.PlayerMap.Fire.IsPressed())
@@ -109,9 +112,16 @@ public class GunBase : MonoBehaviour
             _fullAuto = true;
     }
 
+    public void Enable()
+        => this.enabled = true;
+
+    public void Disable()
+        => this.enabled = false;
+
     public void Fire_performed(InputAction.CallbackContext obj)
     {
-        StartCoroutine(Shoot());
+        if (_bulletSpawnpoint)
+            StartCoroutine(Shoot());
     }
 
     private void Reload_performed(InputAction.CallbackContext obj)

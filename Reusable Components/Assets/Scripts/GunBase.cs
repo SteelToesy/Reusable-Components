@@ -94,7 +94,7 @@ public class GunBase : MonoBehaviour
 
     public void Fullauto()
     {
-        if (!_fullAuto || _bulletSpawnpoint)
+        if (!_fullAuto || !_bulletSpawnpoint)
             return;
 
         if (_playerActions.PlayerMap.Fire.IsPressed())

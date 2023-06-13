@@ -27,43 +27,42 @@ public class GunHandler : MonoBehaviour
         _playerActions.PlayerMap.SwitchWeapon.performed += SwitchWeapon_performed;
     }
 
-
-
     private void OnDisable()
     {
         _playerActions.PlayerMap.SwitchWeapon.Disable();
         _playerActions.PlayerMap.SwitchWeapon.performed -= SwitchWeapon_performed;
     }
 
-    public void AddGun(Component pGun)
+    public void AddGun(GunBase pGun)
     {
         gameObject.AddComponent(pGun.GetType());
         for (int i = 0; i < _guns.Length; i++)
-        {
             if (_guns[i] == null)
             {
                 _guns[i] = GetComponent(pGun.GetType());
+                if (i == 1) EnableOnlyCurrent();
                 return;
             }
-        }
         ReplaceGun(GetComponent(pGun.GetType()));
+        EnableOnlyCurrent();
     }
 
     public void ReplaceGun(Component pGun)
     {
-        Component temp = GetComponent(_guns[_currentGun].GetType());
-        Destroy(temp);
+        Destroy(GetComponent(_guns[_currentGun].GetType()));
         _guns[_currentGun] = pGun;
     }
 
     void EnableOnlyCurrent()
     {
-        for (int i = 0; i < _guns.Length; i++)
+        if (_guns[1] == null)
+            return; 
+        foreach(GunBase gun in _guns)
         {
-            if (i != _currentGun)
-                _guns[i].GetComponent<GunBase>().Disable();
-            else
-                _guns[i].GetComponent<GunBase>().Enable();
+            if (gun != _guns[_currentGun])
+                gun.Disable();
+            else 
+                gun.Enable();
         }
     }
 

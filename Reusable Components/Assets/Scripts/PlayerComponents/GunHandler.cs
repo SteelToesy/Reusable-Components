@@ -9,12 +9,15 @@ public class GunHandler : MonoBehaviour
 
     [SerializeField] private int _currentGun = 0;
     [SerializeField] private Component[] _guns = new Component[2];
+
     [SerializeField] private GameObject _bullet; //temp?
-    [SerializeField] private Transform _bulletSpawnpoint;
+    [SerializeField] private GameObject _holder;
+
+    [SerializeField] private Sprite[] _gunTexture = new Sprite[2];
 
     public GameObject Bullet => _bullet;
 
-    public Transform BulletSpawnPoint => _bulletSpawnpoint;
+    public Transform BulletSpawnPoint => _holder.transform;
 
     private void Awake()
     {
@@ -33,17 +36,25 @@ public class GunHandler : MonoBehaviour
         _playerActions.PlayerMap.SwitchWeapon.performed -= SwitchWeapon_performed;
     }
 
-    public void AddGun(GunBase pGun)
+    public void AddGun(GunBase pGun, Sprite pGunTexture)
     {
         gameObject.AddComponent(pGun.GetType());
+
         for (int i = 0; i < _guns.Length; i++)
             if (_guns[i] == null)
             {
+                _gunTexture[i] = pGunTexture;
+                _gunTexture[1] = pGunTexture;
                 _guns[i] = GetComponent(pGun.GetType());
+
+                _holder.GetComponent<SpriteRenderer>().sprite = _gunTexture[_currentGun];
+
                 if (i == 1) EnableOnlyCurrent();
+
                 return;
             }
         ReplaceGun(GetComponent(pGun.GetType()));
+        _holder.GetComponent<SpriteRenderer>().sprite = _gunTexture[_currentGun];
         EnableOnlyCurrent();
     }
 
@@ -55,6 +66,7 @@ public class GunHandler : MonoBehaviour
 
     void EnableOnlyCurrent()
     {
+        _holder.GetComponent<SpriteRenderer>().sprite = _gunTexture[_currentGun];
         if (_guns[1] == null)
             return; 
         foreach(GunBase gun in _guns)

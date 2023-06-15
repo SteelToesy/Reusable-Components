@@ -15,6 +15,11 @@ public class GunHandler : MonoBehaviour
 
     [SerializeField] private Sprite[] _gunTexture = new Sprite[2];
 
+    public Component Gun1
+    {
+        get => _guns[0];
+    }
+
     public GameObject Bullet => _bullet;
 
     public Transform BulletSpawnPoint => _holder.transform;

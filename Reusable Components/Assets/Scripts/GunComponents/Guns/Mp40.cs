@@ -12,6 +12,7 @@ public class Mp40 : GunBase
 
         _reloadTime = 2;
 
+        _stashAmmo = 320;
         _maxAmmo = 30;
     }
 

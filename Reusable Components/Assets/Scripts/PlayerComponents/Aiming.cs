@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class Aiming : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+
+    private void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     void Update()
-        => Aim();
+    {
+        SpriteControl();
+        Aim();
+    }
 
     void Aim()
     {
@@ -15,4 +24,14 @@ public class Aiming : MonoBehaviour
 
     Vector3 AimDirection()
         => Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+
+    void SpriteControl()
+    {
+        float rot = transform.rotation.eulerAngles.z -90;
+            
+        if (rot >= 0 && rot <= 180)
+            _spriteRenderer.flipY = true;
+        else 
+            _spriteRenderer.flipY = false;
+    }
 }

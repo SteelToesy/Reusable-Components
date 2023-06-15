@@ -12,6 +12,7 @@ public class Olympia : GunBase
 
         _reloadTime = 4;
 
+        _stashAmmo = 38;
         _maxAmmo = 2;
     }
 

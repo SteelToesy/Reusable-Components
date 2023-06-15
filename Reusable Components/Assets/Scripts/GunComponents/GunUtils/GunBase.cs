@@ -22,8 +22,11 @@ public class GunBase : MonoBehaviour
     [SerializeField]protected float _reloadTime;
     [SerializeField]protected float _currentReloadingTime;
 
+    [SerializeField]protected float _stashAmmo;
     [SerializeField]protected float _maxAmmo;
     [SerializeField]protected float _ammo;
+
+
 
 
 
@@ -80,15 +83,40 @@ public class GunBase : MonoBehaviour
         }
     }
 
+    public bool CanReload()
+    {
+        if (_ammo != _maxAmmo && !_reloading && _stashAmmo != 0)
+            return true;
+        else return false;
+    }
+
     public IEnumerator Reload()
     {
-        if (_ammo != _maxAmmo && !_reloading)
+        if (CanReload())
         {
             _reloading = true;
             yield return new WaitForSeconds(_reloadTime);
-            _ammo = _maxAmmo;
+            _ammo = ReloadAmmo();
             _reloading = false;
         }
+    }
+
+    public float ReloadAmmo()
+    {
+        float ammo = 0;
+        float loadedAmmo = _ammo;
+        for (int i = 0; i < _maxAmmo; i++, loadedAmmo++, ammo++, _stashAmmo--)
+        {
+            if (loadedAmmo == _maxAmmo)
+                return loadedAmmo;
+
+            if (ammo + _ammo == _maxAmmo)
+                return ammo + _ammo;
+
+            if (_stashAmmo == 0)
+                return ammo;
+        }
+        return ammo;
     }
 
     public void Fullauto()

@@ -12,6 +12,7 @@ public class Pistol : GunBase
 
         _reloadTime = 3;
 
+        _stashAmmo = 73;
         _maxAmmo = 7;
     }
 

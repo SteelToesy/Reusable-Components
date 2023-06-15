@@ -9,7 +9,6 @@ public class GunBase : MonoBehaviour
 {
     [SerializeField]protected PlayerActions _playerActions;
 
-    [SerializeField]protected Texture2D _texture;
     [SerializeField]protected Transform _bulletSpawnpoint;
     [SerializeField]protected GameObject _bullet;
 

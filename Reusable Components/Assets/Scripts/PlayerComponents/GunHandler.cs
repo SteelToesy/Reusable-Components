@@ -53,14 +53,15 @@ public class GunHandler : MonoBehaviour
 
                 return;
             }
-        ReplaceGun(GetComponent(pGun.GetType()));
+        ReplaceGun(GetComponent(pGun.GetType()), pGunTexture);
         _holder.GetComponent<SpriteRenderer>().sprite = _gunTexture[_currentGun];
         EnableOnlyCurrent();
     }
 
-    public void ReplaceGun(Component pGun)
+    public void ReplaceGun(Component pGun, Sprite pGuntexture)
     {
         Destroy(GetComponent(_guns[_currentGun].GetType()));
+        _gunTexture[_currentGun] = pGuntexture;
         _guns[_currentGun] = pGun;
     }
 

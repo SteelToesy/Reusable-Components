@@ -1,34 +1,48 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class GunBase : MonoBehaviour
 {
-    [SerializeField]protected PlayerActions _playerActions;
+    [SerializeField] protected PlayerActions _playerActions;
+                     
+    [SerializeField] protected Transform _bulletSpawnpoint;
+    [SerializeField] protected GameObject _bullet;
+                     
+    [SerializeField] protected string _name;
+                     
+    [SerializeField] protected bool _fullAuto = false;
+    [SerializeField] protected bool _allowFullAuto;
+    [SerializeField] protected float _damage;
+    [SerializeField] protected float _firerate;
+    [SerializeField] protected bool _allowShoot = true; //whacky bools
+                     
+    [SerializeField] protected bool _reloading = false; //whacky bools
+    [SerializeField] protected float _reloadTime;
+    [SerializeField] protected float _currentReloadingTime;
+                     
+    [SerializeField] protected float _stashAmmo;
+    [SerializeField] protected float _maxAmmo;
+    [SerializeField] protected float _ammo;
 
-    [SerializeField]protected Transform _bulletSpawnpoint;
-    [SerializeField]protected GameObject _bullet;
+    public string Name
+    {
+        get => _name;
+    }
+    public float Damage
+    {
+        get => _damage;
+    }
 
-    [SerializeField]protected bool _fullAuto = false;
-    [SerializeField]protected bool _allowFullAuto;
-    [SerializeField]protected float _damage;
-    [SerializeField]protected float _firerate;
-    [SerializeField]protected bool _allowShoot = true; //whacky bools
+    public float Ammo
+    {
+        get => _ammo;
+    }
 
-    [SerializeField]protected bool _reloading = false; //whacky bools
-    [SerializeField]protected float _reloadTime;
-    [SerializeField]protected float _currentReloadingTime;
-
-    [SerializeField]protected float _stashAmmo;
-    [SerializeField]protected float _maxAmmo;
-    [SerializeField]protected float _ammo;
-
-
-
-
+    public float StashAmmo
+    {
+        get => _stashAmmo;
+    }
 
     private void Awake()
     {
@@ -77,7 +91,8 @@ public class GunBase : MonoBehaviour
         {
             _allowShoot = false;
             _ammo--;
-            Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
+            GameObject bullet = Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
+            bullet.transform.SetParent(transform, true);
             yield return new WaitForSeconds(60 / _firerate);
             _allowShoot = true;
         }

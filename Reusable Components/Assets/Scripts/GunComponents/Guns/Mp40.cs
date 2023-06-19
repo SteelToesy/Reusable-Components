@@ -6,6 +6,7 @@ public class Mp40 : GunBase
 {
     public Mp40()
     {
+        _name = "MP-40";
         _allowFullAuto = true;
         _damage = 6;
         _firerate = 320;

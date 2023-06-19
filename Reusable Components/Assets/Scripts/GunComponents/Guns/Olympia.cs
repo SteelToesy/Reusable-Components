@@ -6,7 +6,9 @@ public class Olympia : GunBase
 { 
     public Olympia()
     {
-        _allowFullAuto = true;
+        _name = "Olympia";
+
+        _allowFullAuto = false;
         _damage = 18;
         _firerate = 120;
 

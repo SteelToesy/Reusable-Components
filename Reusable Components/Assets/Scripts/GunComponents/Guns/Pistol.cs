@@ -6,6 +6,8 @@ public class Pistol : GunBase
 {
     public Pistol()
     {
+        _name = "M1911";
+
         _allowFullAuto = false;
         _damage = 2;
         _firerate = 240;

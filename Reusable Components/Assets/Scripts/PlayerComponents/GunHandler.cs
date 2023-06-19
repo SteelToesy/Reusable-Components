@@ -10,14 +10,17 @@ public class GunHandler : MonoBehaviour
     [SerializeField] private int _currentGun = 0;
     [SerializeField] private Component[] _guns = new Component[2];
 
+    [SerializeField] private Sprite[] _gunTextures = new Sprite[2];
+
+    [SerializeField] private GunBase[] _gunBases = new GunBase[2];
+
     [SerializeField] private GameObject _bullet; //temp?
     [SerializeField] private GameObject _holder;
 
-    [SerializeField] private Sprite[] _gunTexture = new Sprite[2];
 
-    public Component Gun1
+    public GunBase Gun
     {
-        get => _guns[0];
+        get { return _gunBases[_currentGun];  }
     }
 
     public GameObject Bullet => _bullet;
@@ -43,36 +46,41 @@ public class GunHandler : MonoBehaviour
 
     public void AddGun(GunBase pGun, Sprite pGunTexture)
     {
-        gameObject.AddComponent(pGun.GetType());
+        var gun = gameObject.AddComponent(pGun.GetType());
 
         for (int i = 0; i < _guns.Length; i++)
             if (_guns[i] == null)
             {
-                _gunTexture[i] = pGunTexture;
-                _gunTexture[1] = pGunTexture;
-                _guns[i] = GetComponent(pGun.GetType());
+                SetGunValues(i, (GunBase)gun, pGunTexture);
+                _gunTextures[1] = pGunTexture;
 
-                _holder.GetComponent<SpriteRenderer>().sprite = _gunTexture[_currentGun];
+                _holder.GetComponent<SpriteRenderer>().sprite = _gunTextures[_currentGun];
 
                 if (i == 1) EnableOnlyCurrent();
 
                 return;
             }
-        ReplaceGun(GetComponent(pGun.GetType()), pGunTexture);
-        _holder.GetComponent<SpriteRenderer>().sprite = _gunTexture[_currentGun];
+        ReplaceGun((GunBase)gun, pGunTexture);
+        _holder.GetComponent<SpriteRenderer>().sprite = _gunTextures[_currentGun];
         EnableOnlyCurrent();
     }
 
-    public void ReplaceGun(Component pGun, Sprite pGuntexture)
+    public void ReplaceGun(GunBase pGun, Sprite pGunTexture)
     {
         Destroy(GetComponent(_guns[_currentGun].GetType()));
-        _gunTexture[_currentGun] = pGuntexture;
-        _guns[_currentGun] = pGun;
+        SetGunValues(_currentGun, pGun, pGunTexture);
+    }
+
+    void SetGunValues(int value, GunBase pGun, Sprite pGunTexture)
+    {
+        _gunTextures[value] = pGunTexture;
+        _guns[value] = GetComponent(pGun.GetType());
+        _gunBases[value] = pGun;
     }
 
     void EnableOnlyCurrent()
     {
-        _holder.GetComponent<SpriteRenderer>().sprite = _gunTexture[_currentGun];
+        _holder.GetComponent<SpriteRenderer>().sprite = _gunTextures[_currentGun];
         if (_guns[1] == null)
             return; 
         foreach(GunBase gun in _guns)

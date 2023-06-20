@@ -115,6 +115,8 @@ GameObject:
   - component: {fileID: 344152469263808552}
   - component: {fileID: 344152469263808544}
   - component: {fileID: 344152469263808550}
+  - component: {fileID: 3648682184468669169}
+  - component: {fileID: 1814919283705029680}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -279,13 +281,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentGun: 0
   _guns:
+  - {fileID: 1814919283705029680}
+  - {fileID: 0}
+  _gunTextures:
+  - {fileID: 0}
+  - {fileID: 0}
+  _gunBases:
   - {fileID: 0}
   - {fileID: 0}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _holder: {fileID: 344152468743046029}
-  _gunTexture:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &344152469263808550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,3 +305,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gunhandler: {fileID: 0}
   _gunObjectTransform: {fileID: 0}
+--- !u!114 &3648682184468669169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344152469263808561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d95a67493ee49c43b7bb84108007a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _score: 0
+--- !u!114 &1814919283705029680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344152469263808561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09faed96149f734449e1dd975cce8596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletSpawnpoint: {fileID: 0}
+  _bullet: {fileID: 0}
+  _name: M1911
+  _fullAuto: 0
+  _allowFullAuto: 0
+  _damage: 2
+  _firerate: 240
+  _allowShoot: 1
+  _reloading: 0
+  _reloadTime: 3
+  _currentReloadingTime: 0
+  _stashAmmo: 73
+  _maxAmmo: 7
+  _ammo: 0

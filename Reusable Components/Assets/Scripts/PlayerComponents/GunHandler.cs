@@ -16,6 +16,7 @@ public class GunHandler : MonoBehaviour
 
     [SerializeField] private GameObject _bullet; //temp?
     [SerializeField] private GameObject _holder;
+    [SerializeField] private SpriteRenderer _holderRenderer;
 
 
     public GunBase Gun
@@ -30,6 +31,7 @@ public class GunHandler : MonoBehaviour
     private void Awake()
     {
         _playerActions = new PlayerActions();
+        _holderRenderer = _holder.GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -46,23 +48,15 @@ public class GunHandler : MonoBehaviour
 
     public void AddGun(GunBase pGun, Sprite pGunTexture)
     {
-        var gun = gameObject.AddComponent(pGun.GetType());
-
         for (int i = 0; i < _guns.Length; i++)
             if (_guns[i] == null)
             {
                 _currentGun = i;
-                SetGunValues(i, (GunBase)gun, pGunTexture);
-                _gunTextures[1] = pGunTexture;
-
-                _holder.GetComponent<SpriteRenderer>().sprite = _gunTextures[_currentGun];
-
-                if (i == 1) EnableOnlyCurrent();
-
-                return;
+                SetGunValues(i, pGun, pGunTexture);
+                break;
             }
-        ReplaceGun((GunBase)gun, pGunTexture);
-        _holder.GetComponent<SpriteRenderer>().sprite = _gunTextures[_currentGun];
+        ReplaceGun(pGun, pGunTexture);
+        _holderRenderer.sprite = _gunTextures[_currentGun];
         EnableOnlyCurrent();
     }
 
@@ -74,9 +68,10 @@ public class GunHandler : MonoBehaviour
 
     void SetGunValues(int value, GunBase pGun, Sprite pGunTexture)
     {
+        var gun = gameObject.AddComponent(pGun.GetType());
         _gunTextures[value] = pGunTexture;
-        _guns[value] = GetComponent(pGun.GetType());
-        _gunBases[value] = pGun;
+        _guns[value] = gun;
+        _gunBases[value] = (GunBase)gun;
     }
 
     void EnableOnlyCurrent()

@@ -33,7 +33,7 @@ public class ZombieFollow : MonoBehaviour
         return _target.position - transform.position;
     }
 
-    public bool CloseEnough()
+    public bool CloseEnough() // serach for the closest player or zombie and stop if close enough
     {
         float distance = Vector3.Distance(transform.position, _target.transform.position);
         if (distance > _distanceTilStop)

@@ -34,7 +34,9 @@ public class GunWallBuy : MonoBehaviour, IPickupable
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (!_gunHandler || !_scoreHandler || _scoreHandler.Score < _gunCost)
+        // if gun same reffil ammo
+
+        if (!_gunHandler || !_scoreHandler || _scoreHandler.Score < _gunCost || collision.GetComponent(_gun.GetType())) // if the player already has the gun, don't let him
             return;
 
         if (_playerActions.PlayerMap.Interact.IsPressed())

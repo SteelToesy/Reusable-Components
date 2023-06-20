@@ -29,7 +29,7 @@ public class GunPickup : MonoBehaviour, IPickupable
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (!_gunHandler)
+        if (!_gunHandler || collision.GetComponent(_gun.GetType())) // if the player already has the gun, don't let him
             return;
 
         if (_playerActions.PlayerMap.Interact.IsPressed())

@@ -15,8 +15,11 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private int _spawnDelay;
     [SerializeField] private int _zombiesSpawned;
 
+    [SerializeField] private int _moreZombies;
+
     private void Update()
     {
+        CheckRound();
         CheckZombies();
         RunRound();
     }
@@ -27,7 +30,6 @@ public class WaveManager : MonoBehaviour
         {
             _allowSpawn = false;
             SpawnZombie();
-            _zombiesSpawned++;
             yield return new WaitForSeconds(_spawnDelay);
             _allowSpawn = true;
         }
@@ -35,7 +37,7 @@ public class WaveManager : MonoBehaviour
 
     void RunRound()
     {
-        if (_spawnAmount > _zombiesSpawned)
+        if (_spawnAmount >= _zombiesSpawned)
             StartCoroutine(Spawner());
     }
 
@@ -44,6 +46,17 @@ public class WaveManager : MonoBehaviour
         int spawnpoint = Random.Range(0, _spawnPoints.Count);
         GameObject zombie = Instantiate(_zombieTypes[0], _spawnPoints[spawnpoint]); //hardcoded
         _currentZombies.Add(zombie);
+        _zombiesSpawned++;
+    }
+
+    void CheckRound()
+    {
+        if (!EndOfRound())
+            return;
+
+        _currentWave++;
+        _maxZombies += _moreZombies;
+        _spawnAmount += _moreZombies;
     }
 
     void CheckZombies()
@@ -54,5 +67,15 @@ public class WaveManager : MonoBehaviour
                 _currentZombies.Remove(zombie);
                 Destroy(zombie);
             }
+    }
+
+    bool EndOfRound()
+    {
+        if (_currentZombies.Count <= 0 && _spawnAmount == _zombiesSpawned)
+        {
+            _zombiesSpawned = 0;
+            return true;
+        }
+        else return false;
     }
 }

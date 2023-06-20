@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gun: {fileID: 0}
-  _gunTexture: {fileID: 21300000, guid: 4145baf4536aacf44b0ba11828da9599, type: 3}
+  _gunTexture: {fileID: 21300000, guid: b3046c669f86c484a956d2e9118e2c13, type: 3}
 --- !u!114 &214097604197738061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +150,6 @@ MonoBehaviour:
   _reloading: 0
   _reloadTime: 4
   _currentReloadingTime: 0
-  _stashAmmo: 0
+  _stashAmmo: 38
   _maxAmmo: 2
   _ammo: 0

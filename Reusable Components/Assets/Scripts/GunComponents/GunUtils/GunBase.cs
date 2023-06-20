@@ -10,6 +10,7 @@ public class GunBase : MonoBehaviour
     [SerializeField] protected GameObject _bullet;
                      
     [SerializeField] protected string _name;
+    [SerializeField] protected int _gunCost;
                      
     [SerializeField] protected bool _fullAuto = false;
     [SerializeField] protected bool _allowFullAuto;
@@ -25,24 +26,14 @@ public class GunBase : MonoBehaviour
     [SerializeField] protected float _maxAmmo;
     [SerializeField] protected float _ammo;
 
-    public string Name
-    {
-        get => _name;
-    }
-    public float Damage
-    {
-        get => _damage;
-    }
+    public string Name => _name;
 
-    public float Ammo
-    {
-        get => _ammo;
-    }
+    public int GunCost => _gunCost;
+    public float Damage => _damage;
 
-    public float StashAmmo
-    {
-        get => _stashAmmo;
-    }
+    public float Ammo => _ammo;
+
+    public float StashAmmo => _stashAmmo;
 
     private void Awake()
     {

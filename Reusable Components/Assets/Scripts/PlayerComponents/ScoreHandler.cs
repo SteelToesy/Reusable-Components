@@ -15,4 +15,9 @@ public class ScoreHandler : MonoBehaviour
     {
         _score += pScore;
     }
+
+    public void RemoveScore(float pScore) 
+    {
+        _score -= pScore;
+    }
 }

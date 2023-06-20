@@ -51,6 +51,7 @@ public class GunHandler : MonoBehaviour
         for (int i = 0; i < _guns.Length; i++)
             if (_guns[i] == null)
             {
+                _currentGun = i;
                 SetGunValues(i, (GunBase)gun, pGunTexture);
                 _gunTextures[1] = pGunTexture;
 
@@ -94,6 +95,8 @@ public class GunHandler : MonoBehaviour
 
     private void SwitchWeapon_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
+        if (_guns[1] == null)
+            return;
         if (_guns.Length - 1 == _currentGun)
             _currentGun = 0;
         else

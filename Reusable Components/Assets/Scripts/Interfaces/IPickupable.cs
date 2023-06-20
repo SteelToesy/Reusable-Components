@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPickupable 
 {
-
+    void OnTriggerStay2D(Collider2D collision);
 }

@@ -1,14 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunPickup : MonoBehaviour, IPickupable
+public class GunWallBuy : MonoBehaviour, IPickupable
 {
     [SerializeField] private GunBase _gun;
     [SerializeField] private Sprite _gunTexture;
+    [SerializeField] private int _gunCost;
 
     [SerializeField] private GunHandler _gunHandler;
+    [SerializeField] private ScoreHandler _scoreHandler;
 
     [SerializeField] protected PlayerActions _playerActions;
 
@@ -21,18 +22,26 @@ public class GunPickup : MonoBehaviour, IPickupable
     void Awake()
     {
         _gun = GetComponent<GunBase>();
+        _gunCost = _gun.GunCost;
         _playerActions = new PlayerActions();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-        => _gunHandler = collision.GetComponent<GunHandler>();
+    {
+        _gunHandler = collision.GetComponent<GunHandler>();
+        _scoreHandler = collision.GetComponent<ScoreHandler>();
+    }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (!_gunHandler)
+        if (!_gunHandler || !_scoreHandler || _scoreHandler.Score < _gunCost)
             return;
 
         if (_playerActions.PlayerMap.Interact.IsPressed())
+        {
+            _scoreHandler.RemoveScore(500);
             _gunHandler.AddGun(_gun, _gunTexture);
+        }
     }
 }
+

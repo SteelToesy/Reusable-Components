@@ -7,6 +7,7 @@ public class Olympia : GunBase
     public Olympia()
     {
         _name = "Olympia";
+        _gunCost = 500;
 
         _allowFullAuto = false;
         _damage = 18;

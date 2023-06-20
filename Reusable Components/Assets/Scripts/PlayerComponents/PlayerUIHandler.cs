@@ -6,12 +6,15 @@ using TMPro;
 public class PlayerUIHandler : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
+    [SerializeField] private WaveManager _waveManager;
+
     [SerializeField] private GunHandler _gunHandler;
     [SerializeField] private ScoreHandler _scoreHandler;
 
-    [SerializeField] private TMP_Text _Score;
-    [SerializeField] private TMP_Text _Ammo;
-    [SerializeField] private TMP_Text _Weapon;
+    [SerializeField] private TMP_Text _wave;
+    [SerializeField] private TMP_Text _score;
+    [SerializeField] private TMP_Text _ammo;
+    [SerializeField] private TMP_Text _weapon;
 
     private void Awake()
     {
@@ -26,14 +29,12 @@ public class PlayerUIHandler : MonoBehaviour
 
     void SetUIValues()
     {
-        _Score.text = _scoreHandler.Score.ToString();
+        _score.text = _scoreHandler.Score.ToString();
+        _wave.text = _waveManager.Wave.ToString();
         if (_gunHandler.Gun != null)
         {
-            _Weapon.text = _gunHandler.Gun.Name;
-            _Ammo.text = _gunHandler.Gun.Ammo.ToString() + "/" + _gunHandler.Gun.StashAmmo.ToString();
+            _weapon.text = _gunHandler.Gun.Name;
+            _ammo.text = _gunHandler.Gun.Ammo.ToString() + "/" + _gunHandler.Gun.StashAmmo.ToString();
         }
-
-        //_Weapon.text = _gunHandler.Gun.Name;
-        //_Ammo.text = _gunHandler.Gun.Ammo.ToString() + "/" + _gunHandler.Gun.StashAmmo.ToString();
     }
 }

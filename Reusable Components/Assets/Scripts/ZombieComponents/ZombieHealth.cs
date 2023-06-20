@@ -18,7 +18,7 @@ public class ZombieHealth : MonoBehaviour, IDamageable
     public void TakeDamage(float pDamage)
     {
         _health -= pDamage;
-        if (_health <= 0 )
-            Destroy(this.gameObject);
+        //if (_health <= 0 )
+        //    Destroy(this.gameObject);
     }
 }

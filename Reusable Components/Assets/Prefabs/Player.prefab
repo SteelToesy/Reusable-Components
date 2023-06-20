@@ -290,6 +290,7 @@ MonoBehaviour:
   - {fileID: 0}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _holder: {fileID: 344152468743046029}
+  _holderRenderer: {fileID: 0}
 --- !u!114 &3648682184468669169
 MonoBehaviour:
   m_ObjectHideFlags: 0

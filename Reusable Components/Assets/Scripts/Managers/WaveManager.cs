@@ -14,8 +14,14 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private int _spawnAmount;
     [SerializeField] private int _spawnDelay;
     [SerializeField] private int _zombiesSpawned;
+    [SerializeField] private int _nextRoundDelay;
 
-    [SerializeField] private int _moreZombies;
+    [SerializeField] private int _waveIncreaseZombies;
+
+    public int Wave
+    {
+        get => _currentWave;
+    }
 
     private void Update()
     {
@@ -37,7 +43,7 @@ public class WaveManager : MonoBehaviour
 
     void RunRound()
     {
-        if (_spawnAmount >= _zombiesSpawned)
+        if (_spawnAmount > _zombiesSpawned)
             StartCoroutine(Spawner());
     }
 
@@ -54,9 +60,10 @@ public class WaveManager : MonoBehaviour
         if (!EndOfRound())
             return;
 
+        StartCoroutine(RoundDelay());
         _currentWave++;
-        _maxZombies += _moreZombies;
-        _spawnAmount += _moreZombies;
+        _maxZombies += _waveIncreaseZombies;
+        _spawnAmount += _waveIncreaseZombies;
     }
 
     void CheckZombies()
@@ -77,5 +84,12 @@ public class WaveManager : MonoBehaviour
             return true;
         }
         else return false;
+    }
+
+    IEnumerator RoundDelay()
+    {
+        _allowSpawn = false;
+        yield return new WaitForSeconds(_nextRoundDelay);
+        _allowSpawn = true;
     }
 }

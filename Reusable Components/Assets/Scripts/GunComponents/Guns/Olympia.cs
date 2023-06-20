@@ -11,7 +11,7 @@ public class Olympia : GunBase
 
         _allowFullAuto = false;
         _damage = 18;
-        _firerate = 120;
+        _firerate = 600;
 
         _reloadTime = 4;
 

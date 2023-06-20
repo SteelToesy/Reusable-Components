@@ -10,7 +10,7 @@ public class Pistol : GunBase
 
         _allowFullAuto = false;
         _damage = 2;
-        _firerate = 240;
+        _firerate = 1000;
 
         _reloadTime = 3;
 

@@ -11,7 +11,7 @@ public class Mp40 : GunBase
 
         _allowFullAuto = true;
         _damage = 6;
-        _firerate = 320;
+        _firerate = 1600;
 
         _reloadTime = 2;
 

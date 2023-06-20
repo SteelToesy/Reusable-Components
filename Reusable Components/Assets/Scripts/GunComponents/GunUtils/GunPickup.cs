@@ -33,6 +33,9 @@ public class GunPickup : MonoBehaviour, IPickupable
             return;
 
         if (_playerActions.PlayerMap.Interact.IsPressed())
+        {
             _gunHandler.AddGun(_gun, _gunTexture);
+            Destroy(this.gameObject);
+        }
     }
 }

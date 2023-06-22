@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GunHandler : MonoBehaviour
@@ -79,7 +80,7 @@ public class GunHandler : MonoBehaviour
         _holder.GetComponent<SpriteRenderer>().sprite = _gunTextures[_currentGun];
         if (_guns[1] == null)
             return; 
-        foreach(GunBase gun in _guns)
+        foreach(GunBase gun in _gunBases)
         {
             if (gun != _guns[_currentGun])
                 gun.Disable();

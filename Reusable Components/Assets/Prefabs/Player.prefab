@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 344152469263808567}
   - component: {fileID: 344152469263808566}
   - component: {fileID: 344152469263808564}
-  - component: {fileID: 344152469263808545}
+  - component: {fileID: 5258548779347494467}
   - component: {fileID: 344152469263808558}
   - component: {fileID: 344152469263808553}
   - component: {fileID: 344152469263808552}
@@ -212,8 +212,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &344152469263808545
-CircleCollider2D:
+--- !u!70 &5258548779347494467
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -222,12 +222,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.5144489}
-  serializedVersion: 2
-  m_Radius: 0.48555112
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
 --- !u!114 &344152469263808558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,6 +328,7 @@ MonoBehaviour:
   _reloading: 0
   _reloadTime: 3
   _currentReloadingTime: 0
+  _stashMaxAmmo: 0
   _stashAmmo: 73
   _maxAmmo: 7
   _ammo: 0

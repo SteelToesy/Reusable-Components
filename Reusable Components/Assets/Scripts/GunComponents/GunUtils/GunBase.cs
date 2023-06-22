@@ -21,7 +21,8 @@ public class GunBase : MonoBehaviour
     [SerializeField] protected bool _reloading = false; //whacky bools
     [SerializeField] protected float _reloadTime;
     [SerializeField] protected float _currentReloadingTime;
-                     
+
+    [SerializeField] protected float _stashMaxAmmo;
     [SerializeField] protected float _stashAmmo;
     [SerializeField] protected float _maxAmmo;
     [SerializeField] protected float _ammo;
@@ -39,6 +40,7 @@ public class GunBase : MonoBehaviour
     {
         _playerActions = new PlayerActions();
         _ammo = _maxAmmo;
+        _stashMaxAmmo = _stashAmmo;
     }
 
     private void OnEnable()
@@ -143,6 +145,11 @@ public class GunBase : MonoBehaviour
             _fullAuto = false;
         else 
             _fullAuto = true;
+    }
+
+    public void RefillAmmo()
+    {
+        _stashAmmo = _stashMaxAmmo;
     }
 
     public void Enable()

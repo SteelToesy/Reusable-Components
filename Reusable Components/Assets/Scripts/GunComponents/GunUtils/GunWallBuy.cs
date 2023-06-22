@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GunWallBuy : MonoBehaviour, IPickupable
@@ -34,16 +35,15 @@ public class GunWallBuy : MonoBehaviour, IPickupable
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        // if gun same reffil ammo
-
-        if (!_gunHandler || !_scoreHandler || _scoreHandler.Score < _gunCost || collision.GetComponent(_gun.GetType())) // if the player already has the gun, don't let him
+        if (!_gunHandler || !_scoreHandler || _scoreHandler.Score < _gunCost || !_playerActions.PlayerMap.Interact.IsPressed())
             return;
 
-        if (_playerActions.PlayerMap.Interact.IsPressed())
-        {
-            _scoreHandler.RemoveScore(500);
+        if (collision.GetComponent(_gun.GetType()))
+            _gunHandler.Gun.RefillAmmo();
+        else 
             _gunHandler.AddGun(_gun, _gunTexture);
-        }
+
+        _scoreHandler.RemoveScore(500);
     }
 }
 

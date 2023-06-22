@@ -15,13 +15,15 @@ public class BulletCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<IDamageable>() != null)
-        {
-            collision.GetComponent<IDamageable>()?.TakeDamage(_gunHandler.Gun.Damage);
-            Destroy(this.gameObject);//TODO make pierce feature
-            _scoreHandler.AddScore(10);
-        }
+        if (collision.GetComponent<IDamageable>() == null)
+            return;
+
+        collision.GetComponent<IDamageable>()?.TakeDamage(_gunHandler.Gun.Damage);
+        _scoreHandler.AddScore(10); //TODO make pierce feature
+
         if (collision.GetComponent<ZombieHealth>().Health <= 0)
             _scoreHandler.AddScore(50);
+
+        Destroy(this.gameObject);
     }
 }

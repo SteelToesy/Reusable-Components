@@ -49,8 +49,9 @@ public class WaveManager : MonoBehaviour
 
     void SpawnZombie()
     {
+        int zombietype = Random.Range(0, _zombieTypes.Count);
         int spawnpoint = Random.Range(0, _spawnPoints.Count);
-        GameObject zombie = Instantiate(_zombieTypes[0], _spawnPoints[spawnpoint]); //hardcoded
+        GameObject zombie = Instantiate(_zombieTypes[zombietype], _spawnPoints[spawnpoint]); //hardcoded
         _currentZombies.Add(zombie);
         _zombiesSpawned++;
     }

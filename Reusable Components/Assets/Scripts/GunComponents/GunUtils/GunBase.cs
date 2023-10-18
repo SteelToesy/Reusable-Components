@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GunBase : MonoBehaviour
+public abstract class GunBase : MonoBehaviour
 {
     [SerializeField] protected PlayerActions _playerActions;
                      
@@ -12,15 +12,10 @@ public class GunBase : MonoBehaviour
     [SerializeField] protected string _name;
     [SerializeField] protected int _gunCost;
                      
-    [SerializeField] protected bool _fullAuto = false;
-    [SerializeField] protected bool _allowFullAuto;
     [SerializeField] protected float _damage;
     [SerializeField] protected float _firerate;
-    [SerializeField] protected bool _allowShoot = true; //whacky bools
                      
-    [SerializeField] protected bool _reloading = false; //whacky bools
     [SerializeField] protected float _reloadTime;
-    [SerializeField] protected float _currentReloadingTime;
 
     [SerializeField] protected float _stashMaxAmmo;
     [SerializeField] protected float _stashAmmo;
@@ -63,11 +58,6 @@ public class GunBase : MonoBehaviour
         _playerActions.PlayerMap.ToggleFirerate.performed -= ToggleFirerate_performed;
     }
 
-    private void Update()
-    {
-        Fullauto();
-    }
-
     public void ConnectToPlayer()
     {
         if (!GetComponent<GunHandler>())
@@ -78,34 +68,25 @@ public class GunBase : MonoBehaviour
         _bullet = gunHandler.Bullet;
     }
 
-    public IEnumerator Shoot()
+    public void Shoot()
     {
-        if (_allowShoot && _ammo > 0 && !_reloading)
-        {
-            _allowShoot = false;
-            _ammo--;
-            GameObject bullet = Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
-            bullet.transform.SetParent(transform, true);
-            yield return new WaitForSeconds(60 / _firerate);
-            _allowShoot = true;
-        }
+        GameObject bullet = Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
+        bullet.transform.SetParent(transform, true);
     }
 
     public bool CanReload()
     {
-        if (_ammo != _maxAmmo && !_reloading && _stashAmmo != 0)
+        if (_ammo != _maxAmmo && _stashAmmo != 0)
             return true;
         else return false;
     }
 
-    public IEnumerator Reload()
+    public IEnumerator ReloadCommand()
     {
         if (CanReload())
         {
-            _reloading = true;
             yield return new WaitForSeconds(_reloadTime);
             _ammo = ReloadAmmo();
-            _reloading = false;
         }
     }
 
@@ -127,24 +108,9 @@ public class GunBase : MonoBehaviour
         return ammo;
     }
 
-    public void Fullauto()
-    {
-        if (!_fullAuto || !_bulletSpawnpoint)
-            return;
-
-        if (_playerActions.PlayerMap.Fire.IsPressed())
-            StartCoroutine(Shoot());
-    }
-
     public void ToggleFirerate()
     {
-        if (!_allowFullAuto) 
-            return;
-
-        if (_fullAuto)
-            _fullAuto = false;
-        else 
-            _fullAuto = true;
+        //states
     }
 
     public void RefillAmmo()
@@ -161,12 +127,12 @@ public class GunBase : MonoBehaviour
     public void Fire_performed(InputAction.CallbackContext obj)
     {
         if (_bulletSpawnpoint)
-            StartCoroutine(Shoot());
+            Shoot();
     }
 
     private void Reload_performed(InputAction.CallbackContext obj)
     {
-        StartCoroutine(Reload());
+        StartCoroutine(ReloadCommand());
     }
 
     private void ToggleFirerate_performed(InputAction.CallbackContext obj)

@@ -1738,16 +1738,24 @@ PrefabInstance:
       value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 344152468743046016, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6f4ecd79ebbd2584bb4446712cef034f, type: 3}
-    - target: {fileID: 344152468743046016, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
       propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 344152468743046029, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 344152469263808561, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 344152469263808566, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+    - target: {fileID: 344152469263808566, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 344152469263808567, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
       propertyPath: m_RootOrder
@@ -1791,10 +1799,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 344152469263808567, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5258548779347494467, guid: 00d52cbae81b29d4cb898803b09b0a41, type: 3}
-      propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

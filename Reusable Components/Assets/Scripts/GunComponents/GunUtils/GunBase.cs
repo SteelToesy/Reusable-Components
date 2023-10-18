@@ -2,10 +2,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
+using System.Collections.Generic;
 
 public class GunBase : MonoBehaviour
 {
-    // [SerializeField] private List<IGun> gunstates = new List<IGun>();
+    [SerializeField] private List<IFireMode> modes = new List<IFireMode>();
     [SerializeField] private IFireMode _currentState;
     [SerializeField] private PlayerActions _playerActions;
     [SerializeField] private Transform _bulletSpawnpoint;
@@ -33,13 +34,14 @@ public class GunBase : MonoBehaviour
         _playerActions = new PlayerActions();
         _ammo = _maxAmmo;
         _stashMaxAmmo = _stashAmmo;
+        _currentState = modes[0];
 
         ConnectToPlayer();
     }
 
     private void Update()
     {
-        
+ 
     }
 
     private void OnEnable()

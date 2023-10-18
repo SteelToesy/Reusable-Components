@@ -1,6 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
+using System;
+using System.Collections.Generic;
 
 public class SemiAuto : IFireMode
 {
@@ -28,14 +30,14 @@ public class SemiAuto : IFireMode
         private bool firering = false;
         public override void Update(IFireMode pFireMode)
         {
-            StartCoroutine(Delay());
+            StartCoroutine(Delay(pFireMode));
             if (firering)
                 pFireMode.ChangeState(new Canfire());
         }
 
-        private IEnumerator Delay()
+        private IEnumerator Delay(IFireMode pFireMode)
         {
-            yield return new waitforseconds(60 / pFireMode.Firerate);
+            yield return new WaitForSeconds((60 / pFireMode.Firerate));
         }
     }
     public class Canfire : ShootStateBase
@@ -44,7 +46,7 @@ public class SemiAuto : IFireMode
         {
             pFireMode.ThisBase.BulletsFired(pFireMode.BulletConsumption);
             pFireMode.ThisBase.SpawnBullet();
-            pFireMode.ChangeState(new Firering());;
+        pFireMode.ChangeState(new Firering());
         }
     }
 }

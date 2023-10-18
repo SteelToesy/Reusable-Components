@@ -1,26 +1,23 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Linq;
 
-public abstract class GunBase : MonoBehaviour
+public class GunBase : MonoBehaviour
 {
-    [SerializeField] protected PlayerActions _playerActions;
-                     
-    [SerializeField] protected Transform _bulletSpawnpoint;
-    [SerializeField] protected GameObject _bullet;
-                     
-    [SerializeField] protected string _name;
-    [SerializeField] protected int _gunCost;
-                     
-    [SerializeField] protected float _damage;
-    [SerializeField] protected float _firerate;
-                     
-    [SerializeField] protected float _reloadTime;
-
-    [SerializeField] protected float _stashMaxAmmo;
-    [SerializeField] protected float _stashAmmo;
-    [SerializeField] protected float _maxAmmo;
-    [SerializeField] protected float _ammo;
+    // [SerializeField] private List<IGun> gunstates = new List<IGun>();
+    [SerializeField] private IFireMode _currentState;
+    [SerializeField] private PlayerActions _playerActions;
+    [SerializeField] private Transform _bulletSpawnpoint;
+    [SerializeField] private GameObject _bullet;
+    [SerializeField] private string _name;
+    [SerializeField] private int _gunCost;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _stashMaxAmmo;
+    [SerializeField] private float _stashAmmo;
+    [SerializeField] private float _maxAmmo;
+    [SerializeField] private float _ammo;
+    [SerializeField] private float _reloadTime;
 
     public string Name => _name;
 
@@ -36,6 +33,13 @@ public abstract class GunBase : MonoBehaviour
         _playerActions = new PlayerActions();
         _ammo = _maxAmmo;
         _stashMaxAmmo = _stashAmmo;
+
+        ConnectToPlayer();
+    }
+
+    private void Update()
+    {
+        
     }
 
     private void OnEnable()
@@ -68,10 +72,15 @@ public abstract class GunBase : MonoBehaviour
         _bullet = gunHandler.Bullet;
     }
 
-    public void Shoot()
+    public void SpawnBullet()
     {
         GameObject bullet = Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
         bullet.transform.SetParent(transform, true);
+    }
+
+    public void BulletsFired(int pAmount)
+    {
+        _ammo -= pAmount;
     }
 
     public bool CanReload()
@@ -108,7 +117,7 @@ public abstract class GunBase : MonoBehaviour
         return ammo;
     }
 
-    public void ToggleFirerate()
+    public void ToggleFireMode()
     {
         //states
     }
@@ -127,7 +136,7 @@ public abstract class GunBase : MonoBehaviour
     public void Fire_performed(InputAction.CallbackContext obj)
     {
         if (_bulletSpawnpoint)
-            Shoot();
+            SpawnBullet(); // state.shootcommand
     }
 
     private void Reload_performed(InputAction.CallbackContext obj)
@@ -137,6 +146,6 @@ public abstract class GunBase : MonoBehaviour
 
     private void ToggleFirerate_performed(InputAction.CallbackContext obj)
     {
-        ToggleFirerate();
+        ToggleFireMode();
     }
 }

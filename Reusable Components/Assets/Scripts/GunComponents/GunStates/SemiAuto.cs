@@ -4,49 +4,65 @@ using System.Threading;
 using System;
 using System.Collections.Generic;
 
-public class SemiAuto : IFireMode
+public class SemiAuto : FireMode
 {
     [SerializeField] private int _bulletConsumption;
-    public int BulletConsumption => _bulletConsumption;
+    public override int BulletConsumption => _bulletConsumption;
 
     [SerializeField] private float _firerate;
-    public float Firerate => _firerate;
+    public override float Firerate => _firerate;
     [SerializeField] private GunBase _gunBase;
-    public GunBase ThisBase => _gunBase; 
+    public override GunBase ThisBase => _gunBase;
 
     [SerializeField] private ShootStateBase _currentState;
+    [SerializeField] private ShootStateBase _fireringState;
+    public override ShootStateBase FireringState => _fireringState;
+    [SerializeField] private ShootStateBase _canfireState;
+    public override ShootStateBase CanfireState => _canfireState;
 
-    public void SetBase(GunBase pGunBase) => _gunBase = pGunBase;
 
-    public void ChangeState(ShootStateBase pState) => _currentState = pState;
+    public override void SetBase(GunBase pGunBase) => _gunBase = pGunBase;
 
-    public void ShootCommand()
+    public override void ChangeState(ShootStateBase pState) => _currentState = pState;
+
+    private void Awake()
     {
-        _currentState.Update(this);
+        gameObject.AddComponent<Canfire>();
+        gameObject.AddComponent<Firering>();
+        _canfireState = GetComponent<Canfire>();
+        _fireringState = GetComponent<Firering>();
+        _currentState =  _canfireState;
+    }
+
+    public override void UpdateState()
+    {
+        Debug.Log(_currentState);
+        _currentState.UpdateState(this);
     }
 
     public class Firering : ShootStateBase
     {
         private bool firering = false;
-        public override void Update(IFireMode pFireMode)
+        public override void UpdateState(FireMode pFireMode)
         {
             StartCoroutine(Delay(pFireMode));
             if (firering)
-                pFireMode.ChangeState(new Canfire());
+                pFireMode.ChangeState(pFireMode.CanfireState);
         }
 
-        private IEnumerator Delay(IFireMode pFireMode)
+        private IEnumerator Delay(FireMode pFireMode)
         {
             yield return new WaitForSeconds((60 / pFireMode.Firerate));
+            firering = true;
         }
     }
     public class Canfire : ShootStateBase
     {
-        public override void Update(IFireMode pFireMode)
+        public override void UpdateState(FireMode pFireMode)
         {
             pFireMode.ThisBase.BulletsFired(pFireMode.BulletConsumption);
             pFireMode.ThisBase.SpawnBullet();
-        pFireMode.ChangeState(new Firering());
+        pFireMode.ChangeState(pFireMode.FireringState);
         }
     }
 }

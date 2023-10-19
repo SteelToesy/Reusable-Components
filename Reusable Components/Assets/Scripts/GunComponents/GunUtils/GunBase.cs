@@ -3,11 +3,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Linq;
 using System.Collections.Generic;
+using System;
 
 public class GunBase : MonoBehaviour
 {
-    [SerializeField] private List<IFireMode> modes = new List<IFireMode>();
-    [SerializeField] private IFireMode _currentState;
+    [SerializeField] private List<FireMode> modes;
+    [SerializeField] private FireMode _currentState;
     [SerializeField] private PlayerActions _playerActions;
     [SerializeField] private Transform _bulletSpawnpoint;
     [SerializeField] private GameObject _bullet;
@@ -31,17 +32,21 @@ public class GunBase : MonoBehaviour
 
     private void Awake()
     {
+        modes = gameObject.GetComponents<FireMode>().ToList();
         _playerActions = new PlayerActions();
         _ammo = _maxAmmo;
         _stashMaxAmmo = _stashAmmo;
-        _currentState = modes[0];
+        _currentState = modes.First();
+        _currentState.SetBase(this);
 
         ConnectToPlayer();
     }
 
-    private void Update()
+    public void Active()
     {
- 
+        Debug.Log(gameObject.GetComponent<FireMode>()) ;
+        //_currentState.UpdateState();
+        gameObject.GetComponent<FireMode>().UpdateState();
     }
 
     private void OnEnable()
@@ -71,7 +76,6 @@ public class GunBase : MonoBehaviour
 
         GunHandler gunHandler = GetComponent<GunHandler>();
         _bulletSpawnpoint = gunHandler.BulletSpawnPoint;
-        _bullet = gunHandler.Bullet;
     }
 
     public void SpawnBullet()
@@ -122,6 +126,8 @@ public class GunBase : MonoBehaviour
     public void ToggleFireMode()
     {
         //states
+
+        _currentState.SetBase(this);
     }
 
     public void RefillAmmo()

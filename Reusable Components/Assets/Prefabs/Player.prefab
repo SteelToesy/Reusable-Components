@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 344152468743046029}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 4.15, z: -0.098}
-  m_LocalScale: {x: 2.95, y: 2.95, z: 2.95}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 344152469263808567}
@@ -116,7 +116,6 @@ GameObject:
   - component: {fileID: 344152469263808552}
   - component: {fileID: 344152469263808544}
   - component: {fileID: 3648682184468669169}
-  - component: {fileID: 1814919283705029680}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -133,7 +132,7 @@ Transform:
   m_GameObject: {fileID: 344152469263808561}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4006225, y: -0.1842863, z: 0}
-  m_LocalScale: {x: 0.27, y: 0.27, z: 0.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 344152468743046018}
@@ -189,7 +188,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &344152469263808564
@@ -295,17 +294,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f897f545cd6e32047b6ab9e71349066a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentGun: 0
-  _guns:
-  - {fileID: 1814919283705029680}
-  - {fileID: 0}
-  _gunTextures:
-  - {fileID: 21300000, guid: 6f4ecd79ebbd2584bb4446712cef034f, type: 3}
-  - {fileID: 0}
-  _gunBases:
-  - {fileID: 1814919283705029680}
-  - {fileID: 0}
-  _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
+  _currentGunIndex: 0
+  _currentGunBase: {fileID: 0}
+  _currentGunRenderer: {fileID: 0}
+  _currentGun: {fileID: 0}
+  _gunsGameObjects:
+  - {fileID: 1023189231501375608, guid: a90ceda80f70a3d48ab0e67077b5c565, type: 3}
+  GunCountMax: 2
   _holder: {fileID: 344152468743046029}
   _holderRenderer: {fileID: 0}
 --- !u!114 &3648682184468669169
@@ -321,31 +316,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _score: 500
---- !u!114 &1814919283705029680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344152469263808561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09faed96149f734449e1dd975cce8596, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bulletSpawnpoint: {fileID: 0}
-  _bullet: {fileID: 0}
-  _name: M1911
-  _gunCost: 0
-  _fullAuto: 0
-  _allowFullAuto: 0
-  _damage: 2
-  _firerate: 240
-  _allowShoot: 1
-  _reloading: 0
-  _reloadTime: 3
-  _currentReloadingTime: 0
-  _stashMaxAmmo: 0
-  _stashAmmo: 73
-  _maxAmmo: 7
-  _ammo: 0

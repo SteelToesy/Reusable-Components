@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GunPickup : MonoBehaviour, IPickupable
 {
-    [SerializeField] private GunBase _gun;
+    [SerializeField] private GameObject _gun;
     [SerializeField] private Sprite _gunTexture;
 
     [SerializeField] private GunHandler _gunHandler;
@@ -20,7 +20,6 @@ public class GunPickup : MonoBehaviour, IPickupable
 
     void Awake()
     {
-        _gun = GetComponent<GunBase>();
         _playerActions = new PlayerActions();
     }
 
@@ -29,7 +28,7 @@ public class GunPickup : MonoBehaviour, IPickupable
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (!_gunHandler || collision.GetComponent(_gun.GetType())) // if the player already has the gun, don't let him
+        if (!_gunHandler || collision.GetComponent(_gun.GetType())) // fix later
             return;
 
         if (_playerActions.PlayerMap.Interact.IsPressed())

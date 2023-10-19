@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class ShootStateBase : MonoBehaviour
 {
-    public abstract void Update(IFireMode pFireMode);
+    public abstract void UpdateState(FireMode pFireMode);
 }
 

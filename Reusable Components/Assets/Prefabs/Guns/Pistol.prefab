@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 1023189231501375615}
   - component: {fileID: 1023189231501375612}
   - component: {fileID: 1023189231501375603}
-  - component: {fileID: 7000658565393960775}
+  - component: {fileID: 4943944458166980309}
+  - component: {fileID: 2467695686844031457}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -31,7 +32,8 @@ Transform:
   m_LocalPosition: {x: -0.25123215, y: 0.4345029, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 6367745604972019803}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -127,7 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gun: {fileID: 0}
   _gunTexture: {fileID: 21300000, guid: 6f4ecd79ebbd2584bb4446712cef034f, type: 3}
---- !u!114 &7000658565393960775
+  _gunHandler: {fileID: 0}
+--- !u!114 &4943944458166980309
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,19 +139,63 @@ MonoBehaviour:
   m_GameObject: {fileID: 1023189231501375608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09faed96149f734449e1dd975cce8596, type: 3}
+  m_Script: {fileID: 11500000, guid: fcfdee406cad8ba4d909eca648a2a48b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpawnpoint: {fileID: 0}
-  _bullet: {fileID: 0}
-  _fullAuto: 0
-  _allowFullAuto: 0
-  _damage: 2
-  _firerate: 240
-  _allowShoot: 1
-  _reloading: 0
-  _reloadTime: 3
-  _currentReloadingTime: 0
+  _bulletSpawnpoint: {fileID: 6367745604972019803}
+  _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
+  _name: Pistol
+  _gunCost: 0
+  _damage: 1
+  _stashMaxAmmo: 53
   _stashAmmo: 0
   _maxAmmo: 7
-  _ammo: 0
+  _ammo: 7
+  _reloadTime: 2
+--- !u!114 &2467695686844031457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023189231501375608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a56463e147ff4d3e9e2a24307bfd71a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletConsumption: 1
+  _firerate: 180
+  _gunBase: {fileID: 0}
+  _currentState: {fileID: 0}
+--- !u!1 &3614254828286321765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6367745604972019803}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6367745604972019803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3614254828286321765}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1023189231501375614}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

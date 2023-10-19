@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class GunWallBuy : MonoBehaviour, IPickupable
 {
-    [SerializeField] private GunBase _gun;
+    [SerializeField] private GunBase _gunBase;
+    [SerializeField] private GameObject _gun;
     [SerializeField] private Sprite _gunTexture;
     [SerializeField] private int _gunCost;
 
@@ -22,8 +23,8 @@ public class GunWallBuy : MonoBehaviour, IPickupable
 
     void Awake()
     {
-        _gun = GetComponent<GunBase>();
-        _gunCost = _gun.GunCost;
+        _gunBase = _gun.GetComponent<GunBase>();
+        _gunCost = _gunBase.GunCost;
         _playerActions = new PlayerActions();
     }
 

@@ -20,19 +20,10 @@ public class GunHandler : MonoBehaviour
 
     public GunBase Gun => _currentGunBase;
 
-    public Transform BulletSpawnPoint => _holder.transform;
-
     private void Awake()
     {
         _playerActions = new PlayerActions();
         _holderRenderer = _holder.GetComponent<SpriteRenderer>();
-        UpdateFields();
-    }
-
-    private void Update()
-    {
-        Debug.Log(_gunsGameObjects[_currentGunIndex]);
-        _currentGunBase.Active();
     }
 
     private void OnEnable()
@@ -49,17 +40,21 @@ public class GunHandler : MonoBehaviour
 
     public void AddGun(GameObject pGun, Sprite pGunTexture)
     {
-        if(GunCountMax >= _gunsGameObjects.Count)
+        if(GunCountMax > _gunsGameObjects.Count)
         {
             _gunsGameObjects.Add(pGun);
-            _currentGunIndex++;
+            if (_gunsGameObjects.Count == 1)
+                _currentGunIndex = 0;
+            else
+                _currentGunIndex++;
         }
         else
         {
             _gunsGameObjects.RemoveAt(_currentGunIndex);
             _gunsGameObjects.Add(pGun);
         }
-
+        UpdateFields(_gunsGameObjects[_currentGunIndex]);
+        _currentGunBase.ConnectGunHandler(this);
     }
 
     private void SwitchWeapon_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -70,13 +65,13 @@ public class GunHandler : MonoBehaviour
             _currentGunIndex = 1;
         else
             _currentGunIndex++;
-        UpdateFields();
+        UpdateFields(_gunsGameObjects[_currentGunIndex]);
     }
 
-    public void UpdateFields()
+    public void UpdateFields(GameObject pGun)
     {
-        _currentGunBase = _gunsGameObjects[_currentGunIndex].GetComponent<GunBase>();
-        _currentGunRenderer = _gunsGameObjects[_currentGunIndex].GetComponent<SpriteRenderer>();
-        _currentGun = _gunsGameObjects[_currentGunIndex];
+        _currentGunBase = pGun.GetComponent<GunBase>();
+        _currentGunRenderer = pGun.GetComponent<SpriteRenderer>();
+        _currentGun = pGun;
     }
 }

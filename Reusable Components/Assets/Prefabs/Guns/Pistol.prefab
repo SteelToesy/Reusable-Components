@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 1023189231501375603}
   - component: {fileID: 4943944458166980309}
   - component: {fileID: 2467695686844031457}
+  - component: {fileID: 7246824089359114900}
+  - component: {fileID: 5937850502968817936}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -142,12 +144,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfdee406cad8ba4d909eca648a2a48b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gunhandler: {fileID: 0}
+  modes:
+  - {fileID: 2467695686844031457}
+  _currentMode: {fileID: 2467695686844031457}
   _bulletSpawnpoint: {fileID: 6367745604972019803}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _name: Pistol
   _gunCost: 0
   _damage: 1
-  _stashMaxAmmo: 53
+  _stashMaxAmmo: 0
   _stashAmmo: 0
   _maxAmmo: 7
   _ammo: 7
@@ -166,8 +172,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletConsumption: 1
   _firerate: 180
-  _gunBase: {fileID: 0}
+  _gunBase: {fileID: 4943944458166980309}
   _currentState: {fileID: 0}
+  _fireringState: {fileID: 0}
+  _canfireState: {fileID: 0}
+--- !u!114 &7246824089359114900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023189231501375608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d0731e912514b6f97b90ecee0014b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5937850502968817936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023189231501375608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00e97c1b8fe8c40a9933b514cfd4e27a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3614254828286321765
 GameObject:
   m_ObjectHideFlags: 0

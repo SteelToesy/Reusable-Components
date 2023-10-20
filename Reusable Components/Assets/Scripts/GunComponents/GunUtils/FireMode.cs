@@ -11,6 +11,8 @@ public abstract class FireMode : MonoBehaviour
     public abstract ShootStateBase FireringState { get; }
 
     public abstract void SetBase(GunBase pGunBase);
+
+    public abstract void Initialize();
     public abstract void ChangeState(ShootStateBase pState);
     public abstract void UpdateState();
 }

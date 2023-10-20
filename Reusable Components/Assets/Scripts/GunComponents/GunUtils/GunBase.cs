@@ -7,8 +7,9 @@ using System;
 
 public class GunBase : MonoBehaviour
 {
+    [SerializeField] private GunHandler _gunhandler;
     [SerializeField] private List<FireMode> modes;
-    [SerializeField] private FireMode _currentState;
+    [SerializeField] private FireMode _currentMode;
     [SerializeField] private PlayerActions _playerActions;
     [SerializeField] private Transform _bulletSpawnpoint;
     [SerializeField] private GameObject _bullet;
@@ -30,23 +31,22 @@ public class GunBase : MonoBehaviour
 
     public float StashAmmo => _stashAmmo;
 
-    private void Awake()
+    public void Initialize()
     {
         modes = gameObject.GetComponents<FireMode>().ToList();
+        modes.ForEach(x => x.Initialize());
         _playerActions = new PlayerActions();
         _ammo = _maxAmmo;
         _stashMaxAmmo = _stashAmmo;
-        _currentState = modes.First();
-        _currentState.SetBase(this);
-
-        ConnectToPlayer();
+        _currentMode = modes.First();
+        _currentMode.SetBase(this);
     }
 
     public void Active()
     {
-        Debug.Log(gameObject.GetComponent<FireMode>()) ;
-        //_currentState.UpdateState();
-        gameObject.GetComponent<FireMode>().UpdateState();
+        Debug.Log("Fire");
+        if (_gunhandler != null)
+            _currentMode.UpdateState();
     }
 
     private void OnEnable()
@@ -69,14 +69,10 @@ public class GunBase : MonoBehaviour
         _playerActions.PlayerMap.ToggleFirerate.performed -= ToggleFirerate_performed;
     }
 
-    public void ConnectToPlayer()
-    {
-        if (!GetComponent<GunHandler>())
-            return;
-
-        GunHandler gunHandler = GetComponent<GunHandler>();
-        _bulletSpawnpoint = gunHandler.BulletSpawnPoint;
-    }
+    public void ConnectGunHandler(GunHandler pHandler) {
+        _gunhandler = pHandler;
+        Debug.Log(_gunhandler);
+    } 
 
     public void SpawnBullet()
     {
@@ -127,7 +123,7 @@ public class GunBase : MonoBehaviour
     {
         //states
 
-        _currentState.SetBase(this);
+        _currentMode.SetBase(this);
     }
 
     public void RefillAmmo()
@@ -135,16 +131,9 @@ public class GunBase : MonoBehaviour
         _stashAmmo = _stashMaxAmmo;
     }
 
-    public void Enable()
-        => this.enabled = true;
-
-    public void Disable()
-        => this.enabled = false;
-
     public void Fire_performed(InputAction.CallbackContext obj)
     {
-        if (_bulletSpawnpoint)
-            SpawnBullet(); // state.shootcommand
+       Active();
     }
 
     private void Reload_performed(InputAction.CallbackContext obj)

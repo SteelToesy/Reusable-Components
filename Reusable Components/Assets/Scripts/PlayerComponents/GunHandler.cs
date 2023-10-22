@@ -3,27 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GunHandler : MonoBehaviour
 {
     [SerializeField] private PlayerActions _playerActions;
+    public PlayerActions Playeractions { get { return _playerActions; } }
 
     [SerializeField] private int _currentGunIndex;
     [SerializeField] private GunBase _currentGunBase;
-    [SerializeField] private SpriteRenderer _currentGunRenderer;
     [SerializeField] private GameObject _currentGun;
     [SerializeField] private List<GameObject> _gunsGameObjects = new List<GameObject>();
     [SerializeField] private int GunCountMax = 2;
 
-    [SerializeField] private GameObject _holder;
-    [SerializeField] private SpriteRenderer _holderRenderer;
 
     public GunBase Gun => _currentGunBase;
 
     private void Awake()
     {
         _playerActions = new PlayerActions();
-        _holderRenderer = _holder.GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
@@ -40,9 +38,11 @@ public class GunHandler : MonoBehaviour
 
     public void AddGun(GameObject pGun, Sprite pGunTexture)
     {
-        if(GunCountMax > _gunsGameObjects.Count)
+        GameObject gun = Instantiate(pGun, new Vector3(transform.position.x + 0.6f, transform.position.y, transform.position.z + -0.1f), Quaternion.identity, transform);
+        gun.AddComponent<Aiming>();
+        if (GunCountMax > _gunsGameObjects.Count)
         {
-            _gunsGameObjects.Add(pGun);
+            _gunsGameObjects.Add(gun);
             if (_gunsGameObjects.Count == 1)
                 _currentGunIndex = 0;
             else
@@ -51,13 +51,19 @@ public class GunHandler : MonoBehaviour
         else
         {
             _gunsGameObjects.RemoveAt(_currentGunIndex);
-            _gunsGameObjects.Add(pGun);
+            _gunsGameObjects.Add(gun);
         }
         UpdateFields(_gunsGameObjects[_currentGunIndex]);
         _currentGunBase.ConnectGunHandler(this);
     }
 
-    private void SwitchWeapon_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    public void UpdateFields(GameObject pGun)
+    {
+        _currentGunBase = pGun.GetComponent<GunBase>();
+        _currentGun = pGun;
+    }
+
+    private void SwitchWeapon_performed(InputAction.CallbackContext obj)
     {
         if (_gunsGameObjects.Count == 1)
             return;
@@ -66,12 +72,5 @@ public class GunHandler : MonoBehaviour
         else
             _currentGunIndex++;
         UpdateFields(_gunsGameObjects[_currentGunIndex]);
-    }
-
-    public void UpdateFields(GameObject pGun)
-    {
-        _currentGunBase = pGun.GetComponent<GunBase>();
-        _currentGunRenderer = pGun.GetComponent<SpriteRenderer>();
-        _currentGun = pGun;
     }
 }

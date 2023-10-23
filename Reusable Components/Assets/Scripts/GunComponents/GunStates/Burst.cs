@@ -12,6 +12,8 @@ public class Burst : FireMode
     [SerializeField] private float _firerate;
     public override float Firerate => _firerate;
 
+    [SerializeField] private float _burstFirerate;
+
     [SerializeField] private int _bulletsInBurst;
     [SerializeField] private GunBase _gunBase;
     public override GunBase ThisBase => _gunBase;
@@ -40,22 +42,27 @@ public class Burst : FireMode
 
     public override void Fire()
     {
-        int i = 0;
-        while (i <_bulletsInBurst){
-            if (!_cooldown)
-            {
-                i++;
-                _cooldown = true;
-                ThisBase.BulletsFired(BulletConsumption);
-                ThisBase.SpawnBullet();
-                StartCoroutine(Delay());
-            }
+        if (!_cooldown)
+        {
+            _cooldown = true;
+            StartCoroutine(BurstFire());
+            StartCoroutine(Delay());
+        }
+    }
+
+    IEnumerator BurstFire()
+    {
+        for (int i = 0; i < _bulletsInBurst; i++)
+        {
+            ThisBase.BulletsFired(BulletConsumption);
+            ThisBase.SpawnBullet();
+            yield return new WaitForSeconds(60 / _burstFirerate);
         }
     }
 
     IEnumerator Delay()
     {
-        yield return new WaitForSeconds(60 / Firerate);
+        yield return new WaitForSeconds(60 / _firerate + (_burstFirerate * _bulletsInBurst));
         _cooldown = false;
     }
 

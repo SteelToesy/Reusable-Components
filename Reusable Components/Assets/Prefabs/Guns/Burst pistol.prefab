@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletConsumption: 1
-  _firerate: 800
+  _firerate: 420
   _bulletsInBurst: 3
   _gunBase: {fileID: 0}
   _cooldown: 0

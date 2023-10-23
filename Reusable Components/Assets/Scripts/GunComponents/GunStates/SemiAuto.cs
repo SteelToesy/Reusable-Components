@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Threading;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class SemiAuto : FireMode
 {
@@ -17,16 +18,13 @@ public class SemiAuto : FireMode
     [SerializeField] private GunBase _gunBase;
     public override GunBase ThisBase => _gunBase;
 
-    bool cooldown = false;
+    [SerializeField] private bool _cooldown = false;
+    public override bool Cooldown => _cooldown;
 
-    private void Start()
+    public void OnEnable()
     {
+        StartCoroutine(Delay());
         _playerActions = new PlayerActions();
-        Enable();
-    }
-
-    public void Enable()
-    {
         _playerActions.PlayerMap.Fire.Enable();
         _playerActions.PlayerMap.Fire.performed += Fire_performed;
     }
@@ -34,7 +32,6 @@ public class SemiAuto : FireMode
     public void OnDisable()
     {
         _playerActions.PlayerMap.Fire.Disable();
-        _playerActions.PlayerMap.Fire.performed -= Fire_performed;
     }
 
 
@@ -45,9 +42,9 @@ public class SemiAuto : FireMode
 
     public override void Fire()
     {
-        if (!cooldown)
+        if (!_cooldown)
         {
-            cooldown = true;
+            _cooldown = true;
             ThisBase.BulletsFired(BulletConsumption);
             ThisBase.SpawnBullet();
             StartCoroutine(Delay());
@@ -56,8 +53,8 @@ public class SemiAuto : FireMode
 
     IEnumerator Delay()
     {
-        yield return new WaitForSeconds((60 / Firerate));
-        cooldown = false;
+        yield return new WaitForSeconds(60 / Firerate);
+        _cooldown = false;
     }
 
     public void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -65,5 +62,6 @@ public class SemiAuto : FireMode
         if (_gunBase.GunHandler == null || _gunBase.Ammo <= 0)
             return;
         Fire();
+        Debug.Log(_gunBase.Name + " Firing");
     }
 }

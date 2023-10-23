@@ -6,9 +6,6 @@ using UnityEngine;
 public class GunPickup : MonoBehaviour, IPickupable
 {
     [SerializeField] private GameObject _gun;
-
-    [SerializeField] private Sprite _gunTexture;
-
     [SerializeField] private GunHandler _gunHandler;
 
     [SerializeField] protected PlayerActions _playerActions;
@@ -21,6 +18,7 @@ public class GunPickup : MonoBehaviour, IPickupable
 
     void Awake()
     {
+        _gun = this.gameObject;
         _playerActions = new PlayerActions();
     }
 
@@ -34,8 +32,9 @@ public class GunPickup : MonoBehaviour, IPickupable
 
         if (_playerActions.PlayerMap.Interact.IsPressed())
         {
-            _gunHandler.AddGun(_gun, _gunTexture);
-            Destroy(this.gameObject);
+            _gunHandler.AddGun(_gun);
+            Destroy(gameObject);
+            Debug.Log("Reach");
         }
     }
 }

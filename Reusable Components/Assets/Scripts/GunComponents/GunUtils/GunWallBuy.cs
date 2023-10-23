@@ -7,7 +7,6 @@ public class GunWallBuy : MonoBehaviour, IPickupable
 {
     [SerializeField] private GunBase _gunBase;
     [SerializeField] private GameObject _gun;
-    [SerializeField] private Sprite _gunTexture;
     [SerializeField] private int _gunCost;
 
     [SerializeField] private GunHandler _gunHandler;
@@ -42,7 +41,7 @@ public class GunWallBuy : MonoBehaviour, IPickupable
         if (collision.GetComponent(_gun.GetType()))
             _gunHandler.Gun.RefillAmmo();
         else 
-            _gunHandler.AddGun(_gun, _gunTexture);
+            _gunHandler.AddGun(_gun);
 
         _scoreHandler.RemoveScore(500);
     }

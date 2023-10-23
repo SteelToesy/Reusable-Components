@@ -18,14 +18,9 @@ public class GunHandler : MonoBehaviour
 
 
     public GunBase Gun => _currentGunBase;
-
-    private void Awake()
-    {
-        _playerActions = new PlayerActions();
-    }
-
     private void OnEnable()
     {
+        _playerActions = new PlayerActions();
         _playerActions.PlayerMap.SwitchWeapon.Enable();
         _playerActions.PlayerMap.SwitchWeapon.performed += SwitchWeapon_performed;
     }
@@ -36,13 +31,12 @@ public class GunHandler : MonoBehaviour
         _playerActions.PlayerMap.SwitchWeapon.performed -= SwitchWeapon_performed;
     }
 
-    public void AddGun(GameObject pGun, Sprite pGunTexture)
+    public void AddGun(GameObject pGun)
     {
         GameObject gun = Instantiate(pGun, new Vector3(transform.position.x + 0.6f, transform.position.y, transform.position.z + -0.1f), Quaternion.identity, transform);
-        gun.AddComponent<Aiming>();
-        if (GunCountMax > _gunsGameObjects.Count)
+        _gunsGameObjects.Add(gun);
+        if (GunCountMax >= _gunsGameObjects.Count)
         {
-            _gunsGameObjects.Add(gun);
             if (_gunsGameObjects.Count == 1)
                 _currentGunIndex = 0;
             else
@@ -50,10 +44,11 @@ public class GunHandler : MonoBehaviour
         }
         else
         {
+            Destroy(_gunsGameObjects[_currentGunIndex]);
             _gunsGameObjects.RemoveAt(_currentGunIndex);
-            _gunsGameObjects.Add(gun);
         }
-        UpdateFields(_gunsGameObjects[_currentGunIndex]);
+        SetActiveGun();
+        gun.AddComponent<Aiming>();
         _currentGunBase.ConnectGunHandler(this);
     }
 
@@ -63,14 +58,31 @@ public class GunHandler : MonoBehaviour
         _currentGun = pGun;
     }
 
-    private void SwitchWeapon_performed(InputAction.CallbackContext obj)
+    private void SwitchGun()
     {
         if (_gunsGameObjects.Count == 1)
             return;
-        if (_gunsGameObjects.Count == GunCountMax)
-            _currentGunIndex = 1;
+        if (_gunsGameObjects.Count == _currentGunIndex + 1)
+            _currentGunIndex = 0;
         else
             _currentGunIndex++;
+        SetActiveGun();
+    }
+
+    private void SetActiveGun()
+    {
+        for (int i = 0; i < _gunsGameObjects.Count; i++)
+        {
+            if (_currentGunIndex != i)
+                _gunsGameObjects[i].SetActive(false);
+            else
+                _gunsGameObjects[i].SetActive(true);
+        }
         UpdateFields(_gunsGameObjects[_currentGunIndex]);
+    }
+
+    private void SwitchWeapon_performed(InputAction.CallbackContext obj)
+    {
+        SwitchGun();
     }
 }

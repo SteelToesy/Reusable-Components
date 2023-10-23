@@ -13,6 +13,8 @@ public class GunBase : MonoBehaviour
     [SerializeField] private PlayerActions _playerActions;
 
     [SerializeField] private List<FireMode> modes;
+
+    [SerializeField] private int modesIndex = 0;
     [SerializeField] private FireMode _currentMode;
     [SerializeField] private Transform _bulletSpawnpoint;
     [SerializeField] private GameObject _bullet;
@@ -20,9 +22,9 @@ public class GunBase : MonoBehaviour
     [SerializeField] private int _gunCost;
     [SerializeField] private float _damage;
     [SerializeField] private float _stashMaxAmmo;
-    [SerializeField] private float _stashAmmo;
+    private float _stashAmmo;
     [SerializeField] private float _maxAmmo;
-    [SerializeField] private float _ammo;
+    private float _ammo;
     [SerializeField] private float _reloadTime;
 
     public string Name => _name;
@@ -35,7 +37,17 @@ public class GunBase : MonoBehaviour
 
     public float StashAmmo => _stashAmmo;
 
-    private void Start()
+    public void Start()
+    {
+        modes = gameObject.GetComponents<FireMode>().ToList();
+        modes.ForEach(mode => mode.Initialize(this));
+        _ammo = _maxAmmo;
+        _stashAmmo = _stashMaxAmmo;
+        _currentMode = modes[modesIndex];
+        SetActiveGun();
+    }
+
+    private void OnEnable()
     {
         _playerActions = new PlayerActions();
 
@@ -54,15 +66,6 @@ public class GunBase : MonoBehaviour
 
     }
 
-    public void Initialize()
-    {
-        modes = gameObject.GetComponents<FireMode>().ToList();
-        modes.ForEach(mode => mode.Initialize(this));
-        _ammo = _maxAmmo;
-        _stashMaxAmmo = _stashAmmo;
-        _currentMode = modes.First();
-    }
-
     public void ConnectGunHandler(GunHandler pHandler) {
         _gunhandler = pHandler;
         Debug.Log(_gunhandler);
@@ -70,8 +73,7 @@ public class GunBase : MonoBehaviour
 
     public void SpawnBullet()
     {
-        GameObject bullet = Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
-        bullet.transform.SetParent(transform, true);
+        Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
     }
 
     public void BulletsFired(int pAmount)
@@ -95,6 +97,8 @@ public class GunBase : MonoBehaviour
         }
     }
 
+    public void RefillAmmo() => _stashAmmo = _stashMaxAmmo;
+
     public float ReloadAmmo()
     {
         float ammo = 0;
@@ -115,13 +119,26 @@ public class GunBase : MonoBehaviour
 
     public void ToggleFireMode()
     {
-
+        if (modes.Count == 1)
+            return;
+        if (modes.Count == modesIndex + 1)
+            modesIndex = 0;
+        else
+            modesIndex++;
+        SetActiveGun();
     }
 
-    public void RefillAmmo()
+    private void SetActiveGun()
     {
-        _stashAmmo = _stashMaxAmmo;
+        for (int i = 0; i < modes.Count; i++)
+        {
+            if (i == modesIndex)
+                modes[i].enabled = true;
+            else
+                modes[i].enabled = false;
+        }
     }
+
 
     private void Reload_performed(InputAction.CallbackContext obj)
     {

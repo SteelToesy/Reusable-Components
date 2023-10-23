@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FullAuto : FireMode
 {
+    [SerializeField] private PlayerActions _playerActions;
+
     [SerializeField] private int _bulletConsumption;
     public override int BulletConsumption => _bulletConsumption;
 
@@ -13,48 +15,49 @@ public class FullAuto : FireMode
     [SerializeField] private GunBase _gunBase;
     public override GunBase ThisBase => _gunBase;
 
-    bool cooldown = false;
+    [SerializeField] private bool _cooldown = false;
+    public override bool Cooldown => _cooldown;
 
-    public override void Initialize(GunBase pGunBase)
+    private void OnEnable()
     {
-        _gunBase = pGunBase;
+        StartCoroutine(Delay());
         _playerActions = new PlayerActions();
-
         _playerActions.PlayerMap.Fire.Enable();
-    }
-
-    IEnumerator Delay()
-    {
-        yield return new WaitForSeconds((60 / Firerate));
-        cooldown = false;
-    }
-
-    [SerializeField] private PlayerActions _playerActions;
-
-    public override void Fire()
-    {
-        Debug.Log("works");
-        if (!cooldown)
-        {
-            cooldown = true;
-            ThisBase.BulletsFired(BulletConsumption);
-            ThisBase.SpawnBullet();
-            StartCoroutine(Delay());
-        }
     }
 
     private void OnDisable()
     {
         _playerActions.PlayerMap.Fire.Disable();
     }
+    public override void Initialize(GunBase pGunBase)
+    {
+        _gunBase = pGunBase;
+        
+    }
+
+    public override void Fire()
+    {
+        if (!_cooldown)
+        {
+            _cooldown = true;
+            ThisBase.BulletsFired(BulletConsumption);
+            ThisBase.SpawnBullet();
+            StartCoroutine(Delay());
+        }
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds((60 / Firerate));
+        _cooldown = false;
+    }
 
     private void Update()
     {
         if (_gunBase.GunHandler == null || _gunBase.Ammo <= 0)
             return;
+
         if (_playerActions.PlayerMap.Fire.IsPressed())
-        {
             Fire();
-        }
     }
 }

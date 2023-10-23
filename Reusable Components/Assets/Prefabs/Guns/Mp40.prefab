@@ -128,7 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gun: {fileID: 0}
-  _gunTexture: {fileID: 21300000, guid: 736387813951aa641bd688e324e4378b, type: 3}
   _gunHandler: {fileID: 0}
 --- !u!114 &5119873978406315467
 MonoBehaviour:
@@ -144,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gunhandler: {fileID: 0}
   modes: []
+  modesIndex: 0
   _currentMode: {fileID: 0}
   _bulletSpawnpoint: {fileID: 9222091705969372840}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
@@ -151,9 +151,7 @@ MonoBehaviour:
   _gunCost: 500
   _damage: 1
   _stashMaxAmmo: 320
-  _stashAmmo: 320
   _maxAmmo: 30
-  _ammo: 30
   _reloadTime: 2.5
 --- !u!114 &49927447440457334
 MonoBehaviour:
@@ -169,7 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletConsumption: 1
   _firerate: 500
-  _gunBase: {fileID: 5119873978406315467}
+  _gunBase: {fileID: 0}
+  _cooldown: 0
 --- !u!1 &3944233813760373403
 GameObject:
   m_ObjectHideFlags: 0

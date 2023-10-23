@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class FireMode : MonoBehaviour
+public abstract class FireMode : MonoBehaviour, IFireable
 {
     public abstract int BulletConsumption { get; }
     public abstract float Firerate { get; }

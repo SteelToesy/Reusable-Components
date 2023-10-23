@@ -22,11 +22,10 @@ public class GunPickup : MonoBehaviour, IPickupable
         _playerActions = new PlayerActions();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
-        => _gunHandler = collision.GetComponent<GunHandler>();
 
     public void OnTriggerStay2D(Collider2D collision)
     {
+        _gunHandler = collision.GetComponent<GunHandler>();
         if (!_gunHandler)
             return;
 

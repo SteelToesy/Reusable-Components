@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6069913346792793616}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.093, y: 0.148, z: 0}
+  m_LocalPosition: {x: 1.542, y: 0.225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -134,10 +134,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.70012546, y: 0.014770567}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.310711, y: 0.47082177}
     oldSize: {x: 2.37, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -145,7 +145,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.37, y: 1}
+  m_Size: {x: 1.8796163, y: 0.8168447}
   m_EdgeRadius: 0
 --- !u!114 &1137058097796100418
 MonoBehaviour:
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0043c78bb2d41ce4fa62266c79dca0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 8714647944156145155}
+  _gun: {fileID: 0}
   _gunHandler: {fileID: 0}
 --- !u!114 &3052603411274740907
 MonoBehaviour:

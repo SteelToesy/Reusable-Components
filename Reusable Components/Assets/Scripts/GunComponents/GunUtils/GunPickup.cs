@@ -33,7 +33,6 @@ public class GunPickup : MonoBehaviour, IPickupable
         {
             _gunHandler.AddGun(_gun);
             Destroy(gameObject);
-            Debug.Log("Reach");
         }
     }
 }

@@ -45,8 +45,8 @@ public class Burst : FireMode
         if (!_cooldown)
         {
             _cooldown = true;
-            StartCoroutine(BurstFire());
             StartCoroutine(Delay());
+            StartCoroutine(BurstFire());
         }
     }
 
@@ -58,12 +58,15 @@ public class Burst : FireMode
             ThisBase.SpawnBullet();
             yield return new WaitForSeconds(60 / _burstFirerate);
         }
+        yield return new WaitForSeconds(60 / _firerate);
+        _cooldown = false;
     }
 
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(60 / _firerate + (_burstFirerate * _bulletsInBurst));
         _cooldown = false;
+        Debug.Log(_cooldown);
     }
 
     public void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

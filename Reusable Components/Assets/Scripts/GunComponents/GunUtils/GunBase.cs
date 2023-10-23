@@ -68,7 +68,6 @@ public class GunBase : MonoBehaviour
 
     public void ConnectGunHandler(GunHandler pHandler) {
         _gunhandler = pHandler;
-        Debug.Log(_gunhandler);
     } 
 
     public void SpawnBullet()

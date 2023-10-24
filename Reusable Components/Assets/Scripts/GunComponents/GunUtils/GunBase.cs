@@ -27,6 +27,8 @@ public class GunBase : MonoBehaviour
     private float _ammo;
     [SerializeField] private float _reloadTime;
 
+    public FireMode CurrentMode => _currentMode;
+
     public string Name => _name;
 
     public int GunCost => _gunCost;
@@ -44,7 +46,7 @@ public class GunBase : MonoBehaviour
         _ammo = _maxAmmo;
         _stashAmmo = _stashMaxAmmo;
         _currentMode = modes[modesIndex];
-        SetActiveGun();
+        SetActiveMode();
     }
 
     private void OnEnable()
@@ -124,15 +126,17 @@ public class GunBase : MonoBehaviour
             modesIndex = 0;
         else
             modesIndex++;
-        SetActiveGun();
+        SetActiveMode();
     }
 
-    private void SetActiveGun()
+    private void SetActiveMode()
     {
         for (int i = 0; i < modes.Count; i++)
         {
-            if (i == modesIndex)
+            if (i == modesIndex){
                 modes[i].enabled = true;
+                _currentMode = modes[i];
+            }
             else
                 modes[i].enabled = false;
         }

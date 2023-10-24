@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a56463e147ff4d3e9e2a24307bfd71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: Semi Auto
   _bulletConsumption: 1
   _firerate: 420
   _gunBase: {fileID: 0}

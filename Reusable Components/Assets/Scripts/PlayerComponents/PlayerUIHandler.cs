@@ -10,7 +10,8 @@ public class PlayerUIHandler : MonoBehaviour
 
     [SerializeField] private GunHandler _gunHandler;
     [SerializeField] private ScoreHandler _scoreHandler;
-
+    
+    [SerializeField] private TMP_Text _mode;
     [SerializeField] private TMP_Text _wave;
     [SerializeField] private TMP_Text _score;
     [SerializeField] private TMP_Text _ammo;
@@ -33,6 +34,7 @@ public class PlayerUIHandler : MonoBehaviour
         _wave.text = _waveManager.Wave.ToString();
         if (_gunHandler.Gun != null)
         {
+            _mode.text= _gunHandler.Gun.CurrentMode.Name.ToString();
             _weapon.text = _gunHandler.Gun.Name;
             _ammo.text = _gunHandler.Gun.Ammo.ToString() + "/" + _gunHandler.Gun.StashAmmo.ToString();
         }

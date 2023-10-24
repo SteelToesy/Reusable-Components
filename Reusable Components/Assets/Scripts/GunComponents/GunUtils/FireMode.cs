@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class FireMode : MonoBehaviour, IFireable
 {
+    public abstract string Name { get; }
     public abstract int BulletConsumption { get; }
     public abstract float Firerate { get; }
     public abstract GunBase ThisBase { get; }

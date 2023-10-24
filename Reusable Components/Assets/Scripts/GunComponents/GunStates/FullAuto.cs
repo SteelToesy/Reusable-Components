@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FullAuto : FireMode
 {
+    [SerializeField] private string _name;
+    public override string Name => _name;
     [SerializeField] private PlayerActions _playerActions;
 
     [SerializeField] private int _bulletConsumption;

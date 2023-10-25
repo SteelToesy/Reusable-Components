@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ZombieFollow : MonoBehaviour
+public class ZombieFollow : Enemy
 {
-    [SerializeField] private Transform _target;
+    [SerializeField] private GameObject _target;
 
     NavMeshAgent agent;
     [SerializeField] private Rigidbody2D _rb;
@@ -13,20 +13,19 @@ public class ZombieFollow : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _distanceTilStop;
 
-    private void Awake()
-    {
-        _target = GameObject.Find("Player").transform; // very illegal, must change, pls don't forget. Ugly ass code.
-        _rb = GetComponent<Rigidbody2D>();
-    }
+    private void Awake() => _rb = GetComponent<Rigidbody2D>();
+
+    public override void SetTarget(GameObject pTarget) => _target = pTarget;
 
     private void Start(){
+        // _target = GameObject.Find("Player");
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
 
     private void Update(){
-        agent.SetDestination(_target.position);
+        agent.SetDestination(_target.transform.position);
     }
 
     // private void FixedUpdate()

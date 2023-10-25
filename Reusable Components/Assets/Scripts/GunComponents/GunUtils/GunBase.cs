@@ -74,7 +74,7 @@ public class GunBase : MonoBehaviour
 
     public void SpawnBullet()
     {
-        Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation);
+        Instantiate(_bullet, _bulletSpawnpoint.position, _bulletSpawnpoint.rotation, _gunhandler.gameObject.transform);
     }
 
     public void BulletsFired(int pAmount)

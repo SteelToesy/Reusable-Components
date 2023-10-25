@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _target;
     [SerializeField] private List<Transform> _spawnPoints = new();
     [SerializeField] private List<GameObject> _zombieTypes = new();
     [SerializeField] private List<GameObject> _currentZombies = new();
@@ -51,7 +52,9 @@ public class WaveManager : MonoBehaviour
     {
         int zombietype = Random.Range(0, _zombieTypes.Count);
         int spawnpoint = Random.Range(0, _spawnPoints.Count);
-        GameObject zombie = Instantiate(_zombieTypes[zombietype], _spawnPoints[spawnpoint]); //hardcoded
+        GameObject zombie = Instantiate(_zombieTypes[zombietype], _spawnPoints[spawnpoint]);
+        zombie.GetComponent<ZombieFollow>().SetTarget(_target);
+        Debug.Log(_target);
         _currentZombies.Add(zombie);
         _zombiesSpawned++;
     }

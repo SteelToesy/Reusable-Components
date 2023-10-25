@@ -150,7 +150,7 @@ MonoBehaviour:
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _name: Pistol
   _gunCost: 0
-  _damage: 1
+  _damage: 2
   _stashMaxAmmo: 53
   _maxAmmo: 7
   _reloadTime: 0.75

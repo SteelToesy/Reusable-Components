@@ -19,7 +19,7 @@ public class BulletCollision : MonoBehaviour
             return;
 
         collision.GetComponent<IDamageable>()?.TakeDamage(_gunHandler.Gun.Damage);
-        _scoreHandler.AddScore(10); //TODO make pierce feature
+        _scoreHandler.AddScore(10);
 
         if (collision.GetComponent<ZombieHealth>().Health <= 0)
             _scoreHandler.AddScore(50);

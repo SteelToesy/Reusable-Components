@@ -26,6 +26,7 @@ public class GunBase : MonoBehaviour
     [SerializeField] private float _maxAmmo;
     private float _ammo;
     [SerializeField] private float _reloadTime;
+    private bool _reloading;
 
     public FireMode CurrentMode => _currentMode;
 
@@ -38,6 +39,8 @@ public class GunBase : MonoBehaviour
     public float Ammo => _ammo;
 
     public float StashAmmo => _stashAmmo;
+
+    public bool Reloading => _reloading;
 
     public void Start()
     {
@@ -93,8 +96,10 @@ public class GunBase : MonoBehaviour
     {
         if (CanReload())
         {
+            _reloading = true;
             yield return new WaitForSeconds(_reloadTime);
             _ammo = ReloadAmmo();
+            _reloading = false;
         }
     }
 

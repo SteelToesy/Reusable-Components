@@ -57,6 +57,8 @@ public class Burst : FireMode
     {
         for (int i = 0; i < _bulletsInBurst; i++)
         {
+            if (_gunBase.Ammo == 0)
+                break;
             ThisBase.BulletsFired(BulletConsumption);
             ThisBase.SpawnBullet();
             yield return new WaitForSeconds(60 / _burstFirerate);
@@ -74,7 +76,7 @@ public class Burst : FireMode
 
     public void Fire_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (_gunBase.GunHandler == null || _gunBase.Ammo <= 0)
+        if (_gunBase.GunHandler == null || _gunBase.Ammo <= 0 || _gunBase.Reloading)
             return;
         Fire();
         Debug.Log(_gunBase.Name + " Firing");

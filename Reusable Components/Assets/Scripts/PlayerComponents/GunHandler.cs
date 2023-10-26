@@ -49,7 +49,7 @@ public class GunHandler : MonoBehaviour
         }
         SetActiveGun();
         gun.AddComponent<Aiming>();
-        _currentGunBase.ConnectGunHandler(this);
+        _gunsGameObjects.ForEach(x => x.GetComponent<GunBase>().ConnectGunHandler(this));
     }
 
     public void UpdateFields(GameObject pGun)

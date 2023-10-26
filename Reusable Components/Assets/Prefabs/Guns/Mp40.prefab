@@ -138,7 +138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2178505115246735334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcfdee406cad8ba4d909eca648a2a48b, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb9a525dcb53da448cdc6d063f3c406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gunhandler: {fileID: 0}
@@ -147,12 +147,12 @@ MonoBehaviour:
   _currentMode: {fileID: 0}
   _bulletSpawnpoint: {fileID: 9222091705969372840}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
-  _name: MP-40
-  _gunCost: 500
-  _damage: 1
-  _stashMaxAmmo: 320
+  _name: Mp40
+  _gunCost: 1000
+  _damage: 4
+  _stashMaxAmmo: 570
   _maxAmmo: 30
-  _reloadTime: 2.5
+  _reloadTime: 1.5
 --- !u!114 &49927447440457334
 MonoBehaviour:
   m_ObjectHideFlags: 0

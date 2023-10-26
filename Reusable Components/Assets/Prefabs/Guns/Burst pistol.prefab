@@ -170,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6198783432453034732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcfdee406cad8ba4d909eca648a2a48b, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb9a525dcb53da448cdc6d063f3c406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gunhandler: {fileID: 0}
@@ -181,10 +181,10 @@ MonoBehaviour:
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _name: Burst Pistol
   _gunCost: 250
-  _damage: 2
-  _stashMaxAmmo: 240
+  _damage: 3
+  _stashMaxAmmo: 229
   _maxAmmo: 21
-  _reloadTime: 0.5
+  _reloadTime: 0.8
 --- !u!114 &6198783432453034734
 MonoBehaviour:
   m_ObjectHideFlags: 0

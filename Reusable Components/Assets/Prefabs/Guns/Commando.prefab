@@ -170,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8714647944156145155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcfdee406cad8ba4d909eca648a2a48b, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb9a525dcb53da448cdc6d063f3c406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gunhandler: {fileID: 0}
@@ -180,11 +180,11 @@ MonoBehaviour:
   _bulletSpawnpoint: {fileID: 4983504255866212685}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _name: Commando
-  _gunCost: 1000
-  _damage: 2
-  _stashMaxAmmo: 510
+  _gunCost: 2000
+  _damage: 6
+  _stashMaxAmmo: 410
   _maxAmmo: 40
-  _reloadTime: 2
+  _reloadTime: 2.2
 --- !u!114 &2592657189060953830
 MonoBehaviour:
   m_ObjectHideFlags: 0

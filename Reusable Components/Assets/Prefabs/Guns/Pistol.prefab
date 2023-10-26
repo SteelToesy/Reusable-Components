@@ -138,14 +138,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1023189231501375608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcfdee406cad8ba4d909eca648a2a48b, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb9a525dcb53da448cdc6d063f3c406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gunhandler: {fileID: 0}
-  modes:
-  - {fileID: 2467695686844031457}
+  modes: []
   modesIndex: 0
-  _currentMode: {fileID: 2467695686844031457}
+  _currentMode: {fileID: 0}
   _bulletSpawnpoint: {fileID: 6367745604972019803}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _name: Pistol
@@ -153,7 +152,7 @@ MonoBehaviour:
   _damage: 2
   _stashMaxAmmo: 53
   _maxAmmo: 7
-  _reloadTime: 0.75
+  _reloadTime: 0.3
 --- !u!114 &2467695686844031457
 MonoBehaviour:
   m_ObjectHideFlags: 0

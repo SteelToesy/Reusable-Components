@@ -56,7 +56,7 @@ public class FullAuto : FireMode
 
     private void Update()
     {
-        if (_gunBase.GunHandler == null || _gunBase.Ammo <= 0)
+        if (_gunBase.GunHandler == null || _gunBase.Ammo <= 0 || _gunBase.Reloading)
             return;
 
         if (_playerActions.PlayerMap.Fire.IsPressed())

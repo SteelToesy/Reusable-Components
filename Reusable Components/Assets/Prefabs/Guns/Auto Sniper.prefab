@@ -171,7 +171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4532514834967097140}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcfdee406cad8ba4d909eca648a2a48b, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb9a525dcb53da448cdc6d063f3c406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gunhandler: {fileID: 0}
@@ -181,11 +181,11 @@ MonoBehaviour:
   _bulletSpawnpoint: {fileID: 1095328770971704681}
   _bullet: {fileID: 4193203528300527685, guid: 1aa5301146a5d864795f875469dcb8c5, type: 3}
   _name: Auto Sniper
-  _gunCost: 2000
+  _gunCost: 3500
   _damage: 15
-  _stashMaxAmmo: 490
+  _stashMaxAmmo: 385
   _maxAmmo: 15
-  _reloadTime: 4
+  _reloadTime: 3
 --- !u!114 &2927350265169123186
 MonoBehaviour:
   m_ObjectHideFlags: 0

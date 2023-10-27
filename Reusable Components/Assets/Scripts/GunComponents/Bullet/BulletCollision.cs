@@ -15,15 +15,16 @@ public class BulletCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<IDamageable>() == null)
+        if (collision.GetComponent<Health>() == null || !collision.GetComponent<Health>().Enemy)
             return;
 
-        collision.GetComponent<IDamageable>()?.TakeDamage(_gunHandler.Gun.Damage);
+        Debug.Log(collision.GetComponent<Health>());
+
+        collision.GetComponent<IDamageable>().TakeDamage(_gunHandler.Gun.Damage);
         _scoreHandler.AddScore(10);
-
-        if (collision.GetComponent<ZombieHealth>().Health <= 0)
-            _scoreHandler.AddScore(50);
-
+        /*
+        if (collision.GetComponent<Health>().HealthPoints <= 0)
+            _scoreHandler.AddScore(50);*/
         Destroy(this.gameObject);
     }
 }

@@ -73,7 +73,7 @@ public class WaveManager : MonoBehaviour
     void CheckZombies()
     {
         foreach (GameObject zombie in _currentZombies)
-            if (zombie.GetComponent<ZombieHealth>().Health <= 0) //getComponent in Update??
+            if (zombie.GetComponent<Health>().HealthPoints <= 0) //getComponent in Update??
             {
                 _currentZombies.Remove(zombie);
                 Destroy(zombie);

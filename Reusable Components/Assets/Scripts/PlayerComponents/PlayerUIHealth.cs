@@ -22,7 +22,7 @@ public class PlayerUIHealth : MonoBehaviour
         for (int i = 0, o = 0; i<_healthObjects.Count; i++, o=5)
         {
             if (_health.HealthPoints <= (o * i))
-                _healthObjects[i].position = new(1000, 1000, 1000); //to the shadow realm, ultra mega scuffed
+                _healthObjects[i].position = new(10000, 10000, 10000); //to the shadow realm, ultra mega scuffed
         }
     }
 }

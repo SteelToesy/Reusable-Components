@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private int _wavesToWin;
+
     [SerializeField] private WaveManager _waveManager;
 
     [SerializeField] private Health _playerHealth;
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("dead");
         }
 
-        if (_waveManager.Wave >= 11)
+        if (_waveManager.Wave > _wavesToWin)
         {
             SceneManager.LoadScene(2);
             Debug.Log("W");

@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PlayerUIHandler : MonoBehaviour
 {
+    [SerializeField] private PlayerActions _playerActions;
+
+    [SerializeField] private GameObject _menu;
+
     [SerializeField] private GameObject _player;
     [SerializeField] private WaveManager _waveManager;
 
@@ -19,8 +24,18 @@ public class PlayerUIHandler : MonoBehaviour
 
     private void Awake()
     {
+        _playerActions = new PlayerActions();
         _gunHandler = _player.GetComponent<GunHandler>();
         _scoreHandler = _player.GetComponent<ScoreHandler>();
+        _playerActions.PlayerMap.Pause.Enable();
+        _playerActions.PlayerMap.Pause.performed += Pause_performed;
+    }
+
+    private void Pause_performed(InputAction.CallbackContext obj)
+    {
+        Cursor.visible = true;
+        Time.timeScale = 0f;
+        _menu.SetActive(true);
     }
 
     void Update()

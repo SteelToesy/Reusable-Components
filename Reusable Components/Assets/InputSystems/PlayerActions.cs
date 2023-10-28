@@ -89,6 +89,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""9fbc8e5d-c7fd-4c30-af28-57de48def538"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""44f685de-2815-4cd0-b812-acefc887b991"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +247,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_PlayerMap_ToggleFirerate = m_PlayerMap.FindAction("ToggleFirerate", throwIfNotFound: true);
         m_PlayerMap_SwitchWeapon = m_PlayerMap.FindAction("SwitchWeapon", throwIfNotFound: true);
         m_PlayerMap_Interact = m_PlayerMap.FindAction("Interact", throwIfNotFound: true);
+        m_PlayerMap_Pause = m_PlayerMap.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,6 +314,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMap_ToggleFirerate;
     private readonly InputAction m_PlayerMap_SwitchWeapon;
     private readonly InputAction m_PlayerMap_Interact;
+    private readonly InputAction m_PlayerMap_Pause;
     public struct PlayerMapActions
     {
         private @PlayerActions m_Wrapper;
@@ -304,6 +326,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         public InputAction @ToggleFirerate => m_Wrapper.m_PlayerMap_ToggleFirerate;
         public InputAction @SwitchWeapon => m_Wrapper.m_PlayerMap_SwitchWeapon;
         public InputAction @Interact => m_Wrapper.m_PlayerMap_Interact;
+        public InputAction @Pause => m_Wrapper.m_PlayerMap_Pause;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +357,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnInteract;
+                @Pause.started -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_PlayerMapActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_PlayerMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -359,6 +385,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -372,5 +401,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         void OnToggleFirerate(InputAction.CallbackContext context);
         void OnSwitchWeapon(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

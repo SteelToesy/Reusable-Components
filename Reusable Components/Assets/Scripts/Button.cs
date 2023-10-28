@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class Button : MonoBehaviour
 {
+    [SerializeField] private GameObject _hideMenu;
     [SerializeField] private int _sceneIndex;
 
     public void ChangeScene()
@@ -21,6 +22,8 @@ public class Button : MonoBehaviour
 
     public void Resume()
     {
+        Cursor.visible = false;
+        _hideMenu.SetActive(false);
         Time.timeScale = 1.0f;
     }
 }
